@@ -1,15 +1,35 @@
-﻿@{
-    Layout = null;
-}
+﻿@using WebTourist.Models;
+@model IEnumerable<Attraction>
 
 <!DOCTYPE html>
-
 <html>
 <head>
-  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script src="~/Scripts/Map.js" asp-append-version="true"></script>
+    <title>My ASP.NET Application</title>
 </head>
 <body>
-    
-     
+    <div id="map"></div>
+
+    <div class="div">
+        <input type="button" onclick="show()" class="button" value="Build Route">
+        <input type="button" onclick="show2()" class="button" value="Next Route">
+        <input type="button" class="button" value="My location">
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
+            async defer>
+
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+

@@ -4,13 +4,36 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
+using System.Threading.Tasks;
+using System.Data.Entity;
+
+using WebTourist.Models;
 namespace WebTourist.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        DbContextTourist db = new DbContextTourist();
+
+        //public async Task<ActionResult> Index()
+        //{
+        //    IEnumerable<Attraction> attrac = await  db.Attractions.ToListAsync();
+        //    ViewBag.TotalStudents = attrac;
+        //    return View();
+
+        //}
+        public async Task<ActionResult> Index()
         {
-            return View();
+             
+            
+            return View(await db.Attractions.ToListAsync());
+
         }
+        //public async Task<ActionResult> BookList()
+        //{
+        //    IEnumerable<Attraction> attrac = await db.Attractions.ToListAsync();
+        //    ViewBag.Books = attrac;
+        //    return View("Index");
+        //}
     }
 }
