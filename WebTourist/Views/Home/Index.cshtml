@@ -8,16 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
     <script src="~/Scripts/Map.js" asp-append-version="true"></script>
-    <title>My ASP.NET Application</title>
+    <title>Tourist</title>
 </head>
-<body>
+<body onload="loadPage()">
     <div id="map"></div>
 
     <div class="div">
-        <input type="button" onclick="show()" class="button" value="Build Route">
-        <input type="button" onclick="show2()" class="button" value="Next Route">
+        <input type="button" class="button" value="Build Route">
+        <input type="button" class="button" value="Next Route">
         <input type="button" class="button" value="My location">
     </div>
+
+    <script>
+        function loadPage() {
+            @foreach (var item in Model)
+            {
+                @:ShowMarker(StringToLatLng('@item.CoordinateOGC'), '@item.Name', '@item.Description', map);
+            }
+        }
+
+    </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>

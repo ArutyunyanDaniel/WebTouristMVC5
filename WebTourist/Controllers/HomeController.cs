@@ -13,27 +13,10 @@ namespace WebTourist.Controllers
 {
     public class HomeController : Controller
     {
-        DbContextTourist db = new DbContextTourist();
-
-        //public async Task<ActionResult> Index()
-        //{
-        //    IEnumerable<Attraction> attrac = await  db.Attractions.ToListAsync();
-        //    ViewBag.TotalStudents = attrac;
-        //    return View();
-
-        //}
+        DbContextTourist dbContext = new DbContextTourist();
         public async Task<ActionResult> Index()
         {
-             
-            
-            return View(await db.Attractions.ToListAsync());
-
+            return View(await dbContext.Attractions.ToListAsync());
         }
-        //public async Task<ActionResult> BookList()
-        //{
-        //    IEnumerable<Attraction> attrac = await db.Attractions.ToListAsync();
-        //    ViewBag.Books = attrac;
-        //    return View("Index");
-        //}
     }
 }
