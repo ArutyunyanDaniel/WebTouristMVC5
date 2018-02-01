@@ -32,12 +32,11 @@ function placeMarkerAndPanTo(latLng, map) {
 }
 
 function ShowMarker(latLng, name, description, map) {
-
-
     var marker = new google.maps.Marker({
         position: latLng,
         map: map,
-        title: name
+        title: name,
+        icon: "/Images/museum.png"
     });
     var infowindow = new google.maps.InfoWindow({
         content: description
