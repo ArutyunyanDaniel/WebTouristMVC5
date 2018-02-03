@@ -12,6 +12,10 @@ using System;
 using System.Globalization;
 using System.Collections.Generic;
 
+using System.Linq;
+using System.Web;
+using System.Data.Entity.Spatial;
+
 namespace WebTourist.Controllers
 {
     public class HomeController : Controller
@@ -20,6 +24,12 @@ namespace WebTourist.Controllers
         public async Task<ActionResult> Index()
         {
             return View(await dbContext.Attractions.ToListAsync());
+        }
+
+        [HttpPost]
+        public ActionResult AjaxTest2(string coordinateLat, string coordinateLng)
+        {  
+            return Json(coordinateLat + " " + coordinateLng);
         }
     }
 }

@@ -1,34 +1,28 @@
 ﻿@using WebTourist.Models;
 @model IEnumerable<Attraction>
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="~/Images/favicon.ico" />
-    @Styles.Render("~/Content/Site.css")
-   
-  
-    @*<link type="text/css" rel="stylesheet" href="../../Content/Site.css" />*@
-
-    <script src="~/Scripts/Map.js" asp-append-version="true"></script>
-
-
-    <title>ourist</title>
 </head>
 <body onload="loadPage()">
-    <div id="map"></div>
 
-    <div class="div">
+    <div id="map">
+
+    </div>
+
+    <div class="butPossition">
         <input type="button" class="button" value="Next Route">
     </div>
 
-
-    <div class="dany">
-    <input type="checkbox" name="a" value="1417"> Show excursion routes 
+    <div class="checkboxPosition">
+        <input type="checkbox" name="a" value="1417"> Show excursion routes
     </div>
+
+
     <script>
         function loadPage() {
             @foreach (var item in Model)
@@ -36,11 +30,8 @@
                 @:ShowMarker(StringToLatLng('@item.CoordinateOGC'), '@item.Name', '@item.Description', map);
             }
         }
-
     </script>
-    
- 
-    
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>
 
