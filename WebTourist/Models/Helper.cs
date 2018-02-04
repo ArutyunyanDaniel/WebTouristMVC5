@@ -10,10 +10,9 @@ namespace WebTourist.Models
 {
     static public class Helper
     {
-
         static public PointLatLng StringPointToPointLatLng(string str)
         {
-            str = DeleteLetterFromPointString(str);
+            str = DeleteLetterFromString(str);
             var item = str.Split(' ');
             double lat = double.Parse(item[0], CultureInfo.InvariantCulture);
             double lon = double.Parse(item[1], CultureInfo.InvariantCulture);
@@ -24,7 +23,7 @@ namespace WebTourist.Models
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(@"(");
-            var count = 0;
+            int count = 0;
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             foreach (var coordinate in route)
             {
@@ -37,8 +36,6 @@ namespace WebTourist.Models
             stringBuilder.Append(@")");
             return stringBuilder.ToString();
         }
-
-
 
         static public List<PointLatLng> StringToListLatLng(string route)
         {
@@ -68,7 +65,7 @@ namespace WebTourist.Models
                             else
                             {
                                 stringLon = temp;
-                                listResult.Add(new PointLatLng(Double.Parse(stringLat, CultureInfo.InvariantCulture), 
+                                listResult.Add(new PointLatLng(Double.Parse(stringLat, CultureInfo.InvariantCulture),
                                     Double.Parse(stringLon, CultureInfo.InvariantCulture)));
                                 flag = true;
                             }
@@ -80,7 +77,7 @@ namespace WebTourist.Models
             return listResult;
         }
 
-        static public string DeleteLetterFromPointString(string str)
+        static public string DeleteLetterFromString(string str)
         {
             var strinBuilder = new StringBuilder();
             foreach (var item in str)
@@ -88,11 +85,8 @@ namespace WebTourist.Models
                     strinBuilder.Append(item);
 
             string resultString = strinBuilder.ToString();
-
             if (resultString[0] == ' ')
                 resultString = resultString.Remove(0, 1);
-
-
             return resultString;
         }
 

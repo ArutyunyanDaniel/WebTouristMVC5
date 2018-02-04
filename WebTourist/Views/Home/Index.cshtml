@@ -1,27 +1,31 @@
 ﻿@using WebTourist.Models;
 @model IEnumerable<Attraction>
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
+    <title>ourist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/favicon.ico" />
+
+    @Scripts.Render("~/scripts/Map.js")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/scripts/jquery-3.3.1.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
 </head>
 <body onload="loadPage()">
-
     <div id="map">
-
     </div>
-
     <div class="butPossition">
         <input type="button" class="button" value="Next Route">
     </div>
-
     <div class="checkboxPosition">
         <input type="checkbox" name="a" value="1417"> Show excursion routes
     </div>
-
 
     <script>
         function loadPage() {
@@ -38,10 +42,6 @@
     </script>
 </body>
 </html>
-
-
-
-
 
 
 

@@ -28,10 +28,18 @@ namespace WebTourist.Controllers
         }
 
         [HttpPost]
-        public ActionResult AjaxTest2(string userLocation)
+        public ActionResult EventMouseClick(string userLocation)
         {
             Route route = new Route();
             return Json(route.FindNearestWay(userLocation, dbContext.Routes.ToList()));
+        }
+
+
+        [HttpPost]
+        public JsonResult AjaxTest1()
+        {
+            Route route = new Route();
+            return Json(route.GetExcursionRoutes(dbContext.Routes.ToList()));
         }
 
         protected override void Dispose(bool disposing)

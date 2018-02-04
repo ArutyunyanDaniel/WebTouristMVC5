@@ -37,7 +37,6 @@ namespace WebTourist.Models
         {
             PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
             PointLatLng nearestPoint = new PointLatLng();
-
             double maxDistance = Double.MaxValue;
             foreach (var item in routest)
             {
@@ -50,12 +49,20 @@ namespace WebTourist.Models
                         maxDistance = distance;
                         nearestPoint = point;
                     }
-
                 }
             }
-
             return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
         }
 
+
+        public List<string> GetExcursionRoutes(List<Route> routest)
+        {
+            List<string> excursionRoutest = new List<string>();
+            foreach (var item in routest)
+            {
+                excursionRoutest.Add(Helper.ListLatLngToString(Helper.StringToListLatLng(item.CoordinatesOGC)));
+            }
+            return excursionRoutest;
+        }
     }
 }

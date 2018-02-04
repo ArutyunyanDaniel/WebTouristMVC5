@@ -1,6 +1,7 @@
 ﻿var map;
 var excursionRoutes = null;
 var userMarker = null;
+var route = null;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -9,20 +10,27 @@ function initMap() {
         mapTypeId: 'terrain'
     });
 
+    $.ajax({
+        type: "POST",
+        url: "/Home/AjaxTest1",
+        data: param = "",
+        dataType: "json",
+        success: sF,
+        error: eF
+    });
 
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
 
-        if (excursionRoutes != null)
-        {
+        if (excursionRoutes != null) {
             excursionRoutes.setMap(null);
             excursionRoutes = null;
         }
 
         $.ajax({
             type: "POST",
-            url: "/Home/AjaxTest2",
-            data: { userLocation: String(e.latLng.lat()+' '+ e.latLng.lng()) },
+            url: "/Home/EventMouseClick",
+            data: { userLocation: String(e.latLng.lat() + ' ' + e.latLng.lng()) },
             datatype: "json",
             success: successFunc,
             error: errorFunc
@@ -32,7 +40,7 @@ function initMap() {
 }
 
 function successFunc(data) {
-    
+
     DrawExcursionRoutes(stringToArrayLatLng(data));
 }
 
@@ -41,8 +49,7 @@ function errorFunc(errorData) {
 }
 
 function placeMarkerAndPanTo(latLng, map) {
-    if (userMarker != null)
-    {
+    if (userMarker != null) {
         userMarker.setMap(null);
         userMarker = null;
     }
@@ -81,6 +88,18 @@ function ShowMarker(latLng, name, description, map) {
 
 }
 
+
+function sF(data, status) {
+    for (var i = 0; i < data.length; i++) {
+        DrawEx(stringToArrayLatLng(data[i]));
+    }
+    
+}
+
+function eF(errorData) {
+    alert('Ошибка' + errorData.responseText);
+}
+
 function StringToLatLng(ll) {
     ll = ll.slice(7, -1);
     var latlng = ll.split(' ');
@@ -112,4 +131,17 @@ function DrawExcursionRoutes(route) {
     });
 
     excursionRoutes.setMap(map);
+}
+
+
+function DrawEx(route) {
+    route = new google.maps.Polyline({
+        path: route,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    route.setMap(map);
 }
