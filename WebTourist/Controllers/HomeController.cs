@@ -21,15 +21,23 @@ namespace WebTourist.Controllers
     public class HomeController : Controller
     {
         DbContextTourist dbContext = new DbContextTourist();
+
         public async Task<ActionResult> Index()
         {
             return View(await dbContext.Attractions.ToListAsync());
         }
 
         [HttpPost]
-        public ActionResult AjaxTest2(string coordinateLat, string coordinateLng)
-        {  
-            return Json(coordinateLat + " " + coordinateLng);
+        public ActionResult AjaxTest2(string userLocation)
+        {
+            Route route = new Route();
+            return Json(route.FindNearestWay(userLocation, dbContext.Routes.ToList()));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            dbContext.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
