@@ -15,9 +15,8 @@ namespace WebTourist.Controllers
 
         [HttpPost]
         public ActionResult EventMouseClick(string userLocation)
-        {
-            Route route = new Route();         
-            return Json(route.FindNearestWay(userLocation, dbContext.Routes.ToList()));
+        {       
+            return Json(dbContext.FindNearestWay(userLocation));
         }
 
 

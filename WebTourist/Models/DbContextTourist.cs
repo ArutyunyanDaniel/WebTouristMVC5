@@ -2,9 +2,9 @@ namespace WebTourist.Models
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Collections.Generic;
+    using GMap.NET;
 
     public partial class DbContextTourist : DbContext
     {
@@ -29,40 +29,69 @@ namespace WebTourist.Models
                 .WithRequired(e => e.Route)
                 .WillCascadeOnDelete(false);
         }
-        
+
         public List<ContainerRouteAttractions> GetAttractionAndExcursionRoutes()
         {
             List<ContainerRouteAttractions> result = new List<ContainerRouteAttractions>();
+            List<RouteAttraction> listRouteAttractions;
+            List<Attraction> ls;
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                var List = dbContext.RouteAttractions.ToList();
-                var ls = dbContext.Attractions.ToList();
-                var ll = dbContext.Attractions.ToList();
-                ContainerRouteAttractions routeAttraction = new ContainerRouteAttractions();
-                foreach (var item in List)
+                listRouteAttractions = dbContext.RouteAttractions.ToList();
+                ls = dbContext.Attractions.ToList();
+
+
+                ContainerRouteAttractions tempRA = new ContainerRouteAttractions();
+                foreach (var item in listRouteAttractions)
                 {
-                    if (routeAttraction.IdR == 0)
+                    if (tempRA.IdR == 0)
                     {
-                        routeAttraction.IdR = item.Route.ID;
-                        routeAttraction.CoordinatesRoute = Helper.DEleteleterFS(item.Route.CoordinatesOGC);
-                       
+                        tempRA.IdR = item.Route.ID;
+                        tempRA.CoordinatesRoute = Helper.DEleteleterFS(item.Route.CoordinatesOGC);
+
                     }
-                    if (routeAttraction.IdR == item.Route.ID)
+                    if (tempRA.IdR == item.Route.ID)
                     {
                         Attractions at = new Attractions(item.Attraction.Name, item.Attraction.Description, Helper.DeleteLetterFromString(item.Attraction.CoordinateOGC));
-                        routeAttraction.Attractions.Add(at);
+                        tempRA.Attractions.Add(at);
                     }
                     else
                     {
-                        result.Add(routeAttraction);
-                        routeAttraction = new ContainerRouteAttractions();
+                        result.Add(tempRA);
+                        tempRA = new ContainerRouteAttractions();
                         Attractions at = new Attractions(item.Attraction.Name, item.Attraction.Description, Helper.DeleteLetterFromString(item.Attraction.CoordinateOGC));
-                        routeAttraction.Attractions.Add(at);
+                        tempRA.Attractions.Add(at);
                     }
                 }
-                result.Add(routeAttraction);
+                result.Add(tempRA);
             }
             return result;
+        }
+
+
+        public string FindNearestWay(string userLocation)
+        {
+            PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+            PointLatLng nearestPoint = new PointLatLng();
+            double maxDistance = Double.MaxValue;
+            using (DbContextTourist dbContext = new DbContextTourist())
+            {
+                List<Route>  routes = dbContext.Routes.ToList();
+                foreach (var item in routes)
+                {
+                    List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
+                    foreach (var point in pointsStartedRoute)
+                    {
+                        double distance = Map.GetRouteDistance(userLoc, point);
+                        if (distance < maxDistance)
+                        {
+                            maxDistance = distance;
+                            nearestPoint = point;
+                        }
+                    }
+                }
+            }
+            return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
         }
     }
 }
