@@ -90,5 +90,17 @@ namespace WebTourist.Models
             return resultString;
         }
 
+        static public string DEleteleterFS(string str)
+        {
+            var strinBuilder = new StringBuilder();
+            foreach (var item in str)
+                if (Char.IsDigit(item) || item == ',' || item == ' ' || item == '.')
+                    strinBuilder.Append(item);
+
+            string resultString = strinBuilder.ToString();
+        
+            return resultString;
+        }
+
     }
 }

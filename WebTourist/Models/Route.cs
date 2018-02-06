@@ -52,17 +52,6 @@ namespace WebTourist.Models
                 }
             }
             return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
-        }
-
-
-        public List<string> GetExcursionRoutes(List<Route> routest)
-        {
-            List<string> excursionRoutest = new List<string>();
-            foreach (var item in routest)
-            {
-                excursionRoutest.Add(Helper.ListLatLngToString(Helper.StringToListLatLng(item.CoordinatesOGC)));
-            }
-            return excursionRoutest;
-        }
+        } 
     }
 }

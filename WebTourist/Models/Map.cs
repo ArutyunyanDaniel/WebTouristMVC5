@@ -6,15 +6,25 @@ using System.Globalization;
 using System.Text;
 using System;
 using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
 
 namespace WebTourist.Models
 {
     static public class Map
     {
-        static public  double GetRouteDistance(PointLatLng start, PointLatLng finish)
+        static Map()
         {
-            GDirections m_gDiractiaon = new GDirections();
-            GMapProviders.GoogleMap.GetDirections(out m_gDiractiaon, start, finish, true, true, true, false, true);
+            m_gDiractiaon = new GDirections();
+        }
+
+        static public double GetRouteDistance(PointLatLng start, PointLatLng finish)
+        {
+            DirectionsStatusCode statucCode = DirectionsStatusCode.NOT_FOUND;
+
+            while (statucCode != DirectionsStatusCode.OK)
+                statucCode = GMapProviders.GoogleMap.GetDirections(out m_gDiractiaon, start, finish, true, true, true, false, true);
+
             string distance = Helper.DeleteLetterFromString(m_gDiractiaon.Distance);
             return double.Parse(distance, CultureInfo.InvariantCulture);
         }
@@ -25,5 +35,8 @@ namespace WebTourist.Models
             GMapProviders.GoogleMap.GetDirections(out m_gDiractiaon, start, finish, true, true, true, false, true);
             return m_gDiractiaon.Route;
         }
+
+       
+        static private GDirections m_gDiractiaon;
     }
 }

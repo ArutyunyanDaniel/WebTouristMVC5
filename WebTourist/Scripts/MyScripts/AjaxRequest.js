@@ -1,27 +1,4 @@
-﻿
-function getExcursionRouteFromDbAndDraw() {
-    $.ajax({
-        type: "POST",
-        url: "/Home/AjaxTest1",
-        data: param = "",
-        dataType: "json",
-        success: sF,
-        error: eF
-    });
-}
-
-function sF(data, status) {
-    for (var i = 0; i < data.length; i++) {
-        DrawEx(stringToArrayLatLng(data[i]));
-    }
-}
-
-function eF(errorData) {
-    alert('Ошибка' + errorData.responseText);
-}
-
-
-function eventMouseClick(ll) {
+﻿function eventMouseClick(ll) {
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
@@ -33,8 +10,7 @@ function eventMouseClick(ll) {
 }
 
 function successFunc(data) {
-
-    DrawExcursionRoutes(stringToArrayLatLng(data));
+    DrawPathToExcursionRoute(stringToArrayLatLng(data));
 }
 
 function errorFunc(errorData) {

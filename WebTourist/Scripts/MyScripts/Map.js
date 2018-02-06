@@ -1,7 +1,7 @@
 ﻿var map;
-var excursionRoutes = null;
+var pathToExcursionRoute = null;
 var userMarker = null;
-var route = null;
+var excursionRoute = null;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -10,13 +10,13 @@ function initMap() {
         mapTypeId: 'terrain'
     });
 
-    
+
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
 
-        if (excursionRoutes !== null) {
-            excursionRoutes.setMap(null);
-            excursionRoutes = null;
+        if (pathToExcursionRoute !== null) {
+            pathToExcursionRoute.setMap(null);
+            pathToExcursionRoute = null;
         }
 
         eventMouseClick(e.latLng);
@@ -32,13 +32,13 @@ function placeMarkerAndPanTo(latLng, map) {
 
     userMarker = new google.maps.Marker({
         position: latLng,
-        map: map,
-        title: String(latLng.lat()) + String(latLng.lng())
+        map: map
     });
-   
+
     var infowindow = new google.maps.InfoWindow({
         content: "Your location."
     });
+
     userMarker.addListener('click', function () {
         infowindow.open(map, userMarker);
     });
@@ -61,10 +61,23 @@ function ShowMarker(latLng, name, description, map) {
         infowindow.open(map, marker);
     });
 
+} 
+
+function DrawPathToExcursionRoute(route) {
+    pathToExcursionRoute = new google.maps.Polyline({
+        path: route,
+        geodesic: true,
+        strokeColor: '#00B3FD',
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    pathToExcursionRoute.setMap(map);
 }
+
 
 function DrawExcursionRoutes(route) {
-    excursionRoutes = new google.maps.Polyline({
+    excursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
         strokeColor: '#00B3FD',
@@ -72,18 +85,5 @@ function DrawExcursionRoutes(route) {
         strokeWeight: 6
     });
 
-    excursionRoutes.setMap(map);
-}
-
-
-function DrawEx(route) {
-    route = new google.maps.Polyline({
-        path: route,
-        geodesic: true,
-        strokeColor: '#00B3FD',
-        strokeOpacity: 1.0,
-        strokeWeight: 6
-    });
-
-    route.setMap(map);
+    excursionRoute.setMap(map);
 }
