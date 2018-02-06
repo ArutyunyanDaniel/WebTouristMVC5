@@ -21,9 +21,6 @@
     <div class="butPossition">
         <input type="button" class="button" value="Next Route">
     </div>
-    <div class="checkboxPosition">
-        <input type="checkbox" name="a" value="1417"> Show excursion routes
-    </div>
    
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>
@@ -33,17 +30,17 @@
         function loadPage()
         {
                 @foreach (var item in Model)
-                {
-                    
-                    @:DrawExcursionRoutes(stringToArrayLatLngFromDb('@item.CoordinatesRoute'));
+                {           
+                    @:console.log('@item.CoordinatesRoute');
+                    @:DrawExcursionRoutes(stringToArrayLatLng('@item.CoordinatesRoute'));
                     foreach (var it in item.Attractions)
                     {
                         @:ShowMarker(StringToLatLng('@it.CoordinateAt'), '@it.Name','@it.Description', map);
                     }
-
                 }
             }
     </script> 
+
 </body>
 </html>
 

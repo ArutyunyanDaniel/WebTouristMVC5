@@ -47,7 +47,7 @@ namespace WebTourist.Models
                     if (tempRA.IdR == 0)
                     {
                         tempRA.IdR = item.Route.ID;
-                        tempRA.CoordinatesRoute = Helper.DEleteleterFS(item.Route.CoordinatesOGC);
+                        tempRA.CoordinatesRoute = Helper.DeleteLetterFromString(item.Route.CoordinatesOGC);
 
                     }
                     if (tempRA.IdR == item.Route.ID)

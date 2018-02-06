@@ -12,7 +12,6 @@ namespace WebTourist.Models
     {
         static public PointLatLng StringPointToPointLatLng(string str)
         {
-            str = DeleteLetterFromString(str);
             var item = str.Split(' ');
             double lat = double.Parse(item[0], CultureInfo.InvariantCulture);
             double lon = double.Parse(item[1], CultureInfo.InvariantCulture);
@@ -22,7 +21,6 @@ namespace WebTourist.Models
         static public string ListLatLngToString(List<PointLatLng> route)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append(@"(");
             int count = 0;
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             foreach (var coordinate in route)
@@ -33,7 +31,6 @@ namespace WebTourist.Models
                     stringBuilder.Append("," + coordinate.Lat + " " + coordinate.Lng);
                 count++;
             }
-            stringBuilder.Append(@")");
             return stringBuilder.ToString();
         }
 
@@ -79,26 +76,28 @@ namespace WebTourist.Models
 
         static public string DeleteLetterFromString(string str)
         {
+            Boolean flagPunctuation = false;
             var strinBuilder = new StringBuilder();
             foreach (var item in str)
+            {
+                if (item == ',')
+                    flagPunctuation = true;
                 if (Char.IsDigit(item) || item == ',' || item == ' ' || item == '.')
-                    strinBuilder.Append(item);
-
+                {
+                    if (item == ' ' && flagPunctuation == true)
+                    {
+                        flagPunctuation = false;
+                    }
+                    else
+                    {
+                        strinBuilder.Append(item);
+                    }
+                    
+                }
+            }
             string resultString = strinBuilder.ToString();
             if (resultString[0] == ' ')
                 resultString = resultString.Remove(0, 1);
-            return resultString;
-        }
-
-        static public string DEleteleterFS(string str)
-        {
-            var strinBuilder = new StringBuilder();
-            foreach (var item in str)
-                if (Char.IsDigit(item) || item == ',' || item == ' ' || item == '.')
-                    strinBuilder.Append(item);
-
-            string resultString = strinBuilder.ToString();
-        
             return resultString;
         }
 

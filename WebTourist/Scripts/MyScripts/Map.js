@@ -18,7 +18,6 @@ function initMap() {
             pathToExcursionRoute.setMap(null);
             pathToExcursionRoute = null;
         }
-
         eventMouseClick(e.latLng);
     });
 
@@ -60,7 +59,6 @@ function ShowMarker(latLng, name, description, map) {
     marker.addListener('click', function () {
         infowindow.open(map, marker);
     });
-
 } 
 
 function DrawPathToExcursionRoute(route) {
@@ -71,7 +69,6 @@ function DrawPathToExcursionRoute(route) {
         strokeOpacity: 1.0,
         strokeWeight: 6
     });
-
     pathToExcursionRoute.setMap(map);
 }
 
@@ -84,6 +81,5 @@ function DrawExcursionRoutes(route) {
         strokeOpacity: 1.0,
         strokeWeight: 6
     });
-
     excursionRoute.setMap(map);
 }
