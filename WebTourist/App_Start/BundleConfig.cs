@@ -29,6 +29,9 @@ namespace WebTourist
 
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
                         "~/Scripts/MyScripts/*.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/markerCluster").Include(
+                        "~/Scripts/markerclusterer.js"));
         }
     }
 }

@@ -1,15 +1,17 @@
 ﻿var map;
 var pathToExcursionRoute = null;
 var userMarker = null;
-var excursionRoute = null;
+var arrayMarkers = [];
+
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: { lat: 47.234524, lng: 38.884903 },
+        zoom: 14,
+        center: { lat: 47.21242644449467, lng: 38.92554759979248 },
         mapTypeId: 'terrain'
     });
 
+    google.maps.event.addDomListener(window, 'load', initClustter);
 
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
@@ -19,8 +21,14 @@ function initMap() {
             pathToExcursionRoute = null;
         }
         eventMouseClick(e.latLng);
-    });
+    }); 
+}
 
+function initClustter() {
+    var options = {
+        imagePath: 'images/m'
+    };
+    var markerCluster = new MarkerClusterer(map, arrayMarkers, options);
 }
 
 function placeMarkerAndPanTo(latLng, map) {
@@ -41,17 +49,16 @@ function placeMarkerAndPanTo(latLng, map) {
     userMarker.addListener('click', function () {
         infowindow.open(map, userMarker);
     });
-
     map.panTo(latLng);
 }
 
-function ShowMarker(latLng, name, description, map) {
+function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
     var marker = new google.maps.Marker({
         position: latLng,
-        map: map,
         title: name,
         icon: "/Images/museum.png"
     });
+
     var infowindow = new google.maps.InfoWindow({
         content: description
     });
@@ -59,7 +66,9 @@ function ShowMarker(latLng, name, description, map) {
     marker.addListener('click', function () {
         infowindow.open(map, marker);
     });
-} 
+
+    arrayMarkers.push(marker);
+}
 
 function DrawPathToExcursionRoute(route) {
     pathToExcursionRoute = new google.maps.Polyline({
@@ -74,7 +83,7 @@ function DrawPathToExcursionRoute(route) {
 
 
 function DrawExcursionRoutes(route) {
-    excursionRoute = new google.maps.Polyline({
+    var excursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
         strokeColor: '#00B3FD',

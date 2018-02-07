@@ -21,7 +21,6 @@ namespace WebTourist.Models
         static public double GetRouteDistance(PointLatLng start, PointLatLng finish)
         {
             DirectionsStatusCode statucCode = DirectionsStatusCode.NOT_FOUND;
-
             while (statucCode != DirectionsStatusCode.OK)
                 statucCode = GMapProviders.GoogleMap.GetDirections(out m_gDiractiaon, start, finish, true, true, true, false, true);
 
@@ -36,7 +35,6 @@ namespace WebTourist.Models
             return m_gDiractiaon.Route;
         }
 
-       
         static private GDirections m_gDiractiaon;
     }
 }

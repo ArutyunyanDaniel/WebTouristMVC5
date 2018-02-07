@@ -10,7 +10,6 @@
 }
 
 function successFunc(data) {
-    console.log(data);
     DrawPathToExcursionRoute(stringToArrayLatLng(data));
 }
 
