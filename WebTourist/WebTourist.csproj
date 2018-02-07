@@ -183,6 +183,7 @@
     <Compile Include="Models\DbContextTourist.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="Models\RouteAttraction.cs" />
+    <Compile Include="Models\SaveTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

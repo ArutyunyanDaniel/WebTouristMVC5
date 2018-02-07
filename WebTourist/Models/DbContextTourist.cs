@@ -17,6 +17,9 @@ namespace WebTourist.Models
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<RouteAttraction> RouteAttractions { get; set; }
 
+
+        public virtual DbSet<SaveTable> SaveTable { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attraction>()
@@ -73,9 +76,12 @@ namespace WebTourist.Models
             PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
+
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                List<Route>  routes = dbContext.Routes.ToList();
+                CleareTableVisitedRoutes(dbContext);
+                List<Route> routes = dbContext.Routes.ToList();
+                int IdVisitedExcursionRout = 0;
                 foreach (var item in routes)
                 {
                     List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
@@ -86,11 +92,70 @@ namespace WebTourist.Models
                         {
                             maxDistance = distance;
                             nearestPoint = point;
+                            IdVisitedExcursionRout = item.ID;
                         }
                     }
                 }
+                AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
+            }
+
+            return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+        }
+
+        public string GetNextRoute(string userLocation)
+        {
+            PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+            PointLatLng nearestPoint = new PointLatLng();
+            double maxDistance = Double.MaxValue;
+
+            using (DbContextTourist dbContext = new DbContextTourist())
+            {
+                List<Route> routes = dbContext.Routes.ToList();
+                List<SaveTable> listVisitedExcursionRoute = dbContext.SaveTable.ToList();
+
+                int IdVisitedExcursionRout = 0;
+                foreach (var item in routes)
+                {
+                    if (!isVisited(item.ID, listVisitedExcursionRoute))
+                    {
+                        List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
+                        foreach (var point in pointsStartedRoute)
+                        {
+                            double distance = Map.GetRouteDistance(userLoc, point);
+                            if (distance < maxDistance)
+                            {
+                                maxDistance = distance;
+                                nearestPoint = point;
+                                IdVisitedExcursionRout = item.ID;
+                            }
+                        }
+                    }
+                }
+                AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
             }
             return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+        }
+        private void CleareTableVisitedRoutes(DbContextTourist db)
+        {
+            db.SaveTable.RemoveRange(db.SaveTable);
+            db.SaveChanges();
+        }
+
+        private void AddIdRouteToSaveTable(DbContextTourist db, int id)
+        {
+            SaveTable sT = new SaveTable();
+            sT.IddVisitedExcursionRoute = id;
+            db.SaveTable.Add(sT);
+            db.SaveChanges();
+        }
+        private bool isVisited(int id, List<SaveTable> listVisited)
+        {
+            foreach (var item in listVisited)
+            {
+                if (item.IddVisitedExcursionRoute == id)
+                    return true;
+            }
+            return false;
         }
     }
 }

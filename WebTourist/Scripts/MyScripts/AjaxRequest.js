@@ -10,6 +10,10 @@
 }
 
 function successFunc(data) {
+    if (pathToExcursionRoute !== null) {
+        pathToExcursionRoute.setMap(null);
+        pathToExcursionRoute = null;
+    }
     DrawPathToExcursionRoute(stringToArrayLatLng(data));
 }
 
@@ -24,9 +28,9 @@ function butClick() {
     $.ajax({
         type: "POST",
         url: "/Home/EventButClickNextRoute",
-        data: { testStr: "asdasd" },
+        data: { userLocation: String(currentUserlocation.lat() + ' ' + currentUserlocation.lng()) },
         dataType: "json",
-        success: suc,
+        success: successFunc,
         error: erro
     });
 

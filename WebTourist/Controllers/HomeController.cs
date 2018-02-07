@@ -17,17 +17,19 @@ namespace WebTourist.Controllers
         [HttpPost]
         public JsonResult EventMouseClick(string userLocation)
         {
-            Save = userLocation;
             return Json(dbContext.FindNearestWay(userLocation));
         }
 
         [HttpPost]
-        public JsonResult EventButClickNextRoute(string testStr)
+        public JsonResult EventButClickNextRoute(string userLocation)
         {
-            
-
-            return Json("Сервер получил данные: " + testStr);
-
+            //var l = dbContext.SaveTable.ToList();
+            //string srr=string.Empty;
+            //foreach (var item in l)
+            //{
+            //    srr += item.IddVisitedExcursionRoute + " ";
+            //}
+            return Json(dbContext.GetNextRoute(userLocation));
         }
 
         protected override void Dispose(bool disposing)

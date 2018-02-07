@@ -2,6 +2,7 @@
 var pathToExcursionRoute = null;
 var userMarker = null;
 var arrayMarkers = [];
+var currentUserlocation = null;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -14,7 +15,7 @@ function initMap() {
     
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
-
+        currentUserlocation = e.latLng;
         if (pathToExcursionRoute !== null) {
             pathToExcursionRoute.setMap(null);
             pathToExcursionRoute = null;
