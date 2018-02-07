@@ -40,7 +40,6 @@ namespace WebTourist.Models
                 listRouteAttractions = dbContext.RouteAttractions.ToList();
                 ls = dbContext.Attractions.ToList();
 
-
                 ContainerRouteAttractions tempRA = new ContainerRouteAttractions();
                 foreach (var item in listRouteAttractions)
                 {

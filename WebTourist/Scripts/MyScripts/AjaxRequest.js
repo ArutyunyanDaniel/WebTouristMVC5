@@ -16,3 +16,26 @@ function successFunc(data) {
 function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
+
+
+
+function butClick() {
+
+    $.ajax({
+        type: "POST",
+        url: "/Home/EventButClickNextRoute",
+        data: { testStr: "asdasd" },
+        dataType: "json",
+        success: suc,
+        error: erro
+    });
+
+}
+
+function suc(data) {
+    alert(data);
+}
+
+function erro(errorData) {
+    alert('Ошибка' + errorData.responseText);
+}

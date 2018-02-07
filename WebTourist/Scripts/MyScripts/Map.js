@@ -3,7 +3,6 @@ var pathToExcursionRoute = null;
 var userMarker = null;
 var arrayMarkers = [];
 
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
@@ -12,7 +11,7 @@ function initMap() {
     });
 
     google.maps.event.addDomListener(window, 'load', initClustter);
-
+    
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
 
@@ -80,7 +79,6 @@ function DrawPathToExcursionRoute(route) {
     });
     pathToExcursionRoute.setMap(map);
 }
-
 
 function DrawExcursionRoutes(route) {
     var excursionRoute = new google.maps.Polyline({
