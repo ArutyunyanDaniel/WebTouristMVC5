@@ -1,8 +1,9 @@
 ﻿var map;
 var pathToExcursionRoute = null;
 var userMarker = null;
-var arrayMarkers = [];
+var arrayAttractionMarkers = [];
 var currentUserlocation = null;
+var isEnterLocation= false;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -12,30 +13,26 @@ function initMap() {
     });
 
     google.maps.event.addDomListener(window, 'load', initClustter);
-    
+
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
         currentUserlocation = e.latLng;
-        if (pathToExcursionRoute !== null) {
-            pathToExcursionRoute.setMap(null);
-            pathToExcursionRoute = null;
-        }
+
+        checkPathtoExcursionRoute();
+
         eventMouseClick(e.latLng);
-    }); 
+    });
 }
 
 function initClustter() {
     var options = {
-        imagePath: 'images/m'
+        imagePath: 'images/cluster'
     };
-    var markerCluster = new MarkerClusterer(map, arrayMarkers, options);
+    var markerCluster = new MarkerClusterer(map, arrayAttractionMarkers, options);
 }
 
 function placeMarkerAndPanTo(latLng, map) {
-    if (userMarker !== null) {
-        userMarker.setMap(null);
-        userMarker = null;
-    }
+    checkUserMarker();
 
     userMarker = new google.maps.Marker({
         position: latLng,
@@ -67,14 +64,14 @@ function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
         infowindow.open(map, marker);
     });
 
-    arrayMarkers.push(marker);
+    arrayAttractionMarkers.push(marker);
 }
 
 function DrawPathToExcursionRoute(route) {
     pathToExcursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
-        strokeColor: '#00B3FD',
+        strokeColor: '#023a72',
         strokeOpacity: 1.0,
         strokeWeight: 6
     });
@@ -90,4 +87,18 @@ function DrawExcursionRoutes(route) {
         strokeWeight: 6
     });
     excursionRoute.setMap(map);
+}
+
+function checkUserMarker() {
+    if (userMarker !== null) {
+        userMarker.setMap(null);
+        userMarker = null;
+    }
+}
+
+function checkPathtoExcursionRoute() {
+    if (pathToExcursionRoute !== null) {
+        pathToExcursionRoute.setMap(null);
+        pathToExcursionRoute = null;
+    }
 }

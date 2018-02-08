@@ -1,45 +1,35 @@
-﻿function eventMouseClick(ll) {
+﻿function eventMouseClick(coordinates) {
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
-        data: { userLocation: String(ll.lat() + ' ' + ll.lng()) },
+        data: { userLocation: String(coordinates.lat() + ' ' + coordinates.lng()) },
         datatype: "json",
         success: successFunc,
         error: errorFunc
     });
 }
 
-function successFunc(data) {
-    if (pathToExcursionRoute !== null) {
-        pathToExcursionRoute.setMap(null);
-        pathToExcursionRoute = null;
+function eventButtomClick() {
+    if (!isEnterLocation) {
+        alert('Select your location');
+        return;
     }
-    DrawPathToExcursionRoute(stringToArrayLatLng(data));
-}
-
-function errorFunc(errorData) {
-    alert('Ошибка' + errorData.responseText);
-}
-
-
-
-function butClick() {
-
     $.ajax({
         type: "POST",
         url: "/Home/EventButClickNextRoute",
         data: { userLocation: String(currentUserlocation.lat() + ' ' + currentUserlocation.lng()) },
         dataType: "json",
         success: successFunc,
-        error: erro
+        error: errorFunc
     });
-
 }
 
-function suc(data) {
-    alert(data);
+function successFunc(data) {
+    isEnterLocation = true;
+    checkPathtoExcursionRoute();
+    DrawPathToExcursionRoute(stringToArrayLatLng(data));
 }
 
-function erro(errorData) {
+function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }

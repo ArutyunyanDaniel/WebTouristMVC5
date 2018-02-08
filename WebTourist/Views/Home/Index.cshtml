@@ -19,7 +19,7 @@
     <div id="map"></div>
 
     <div class="butPossition">
-        <input  type="button" onclick="butClick()" class="button" value="Next Route">
+        <input  type="button" onclick="eventButtomClick()" class="button" value="Next Route">
     </div>
 
     <script>
@@ -30,7 +30,7 @@
                     @:DrawExcursionRoutes(stringToArrayLatLng('@item.CoordinatesRoute'));
                     foreach (var it in item.Attractions)
                     {
-                       @:AddMarkerToArrayForClusterMarker(StringToLatLng('@it.CoordinateAt'), '@it.Name','@it.Description', map);
+                       @:AddMarkerToArrayForClusterMarker(StringToLatLng('@it.Coordinate'), '@it.Name','@it.Description', map);
                     }
                 }
         }

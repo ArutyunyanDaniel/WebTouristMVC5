@@ -9,7 +9,6 @@ namespace WebTourist.Models
     {
         public ContainerRouteAttractions()
         {
-
             Attractions = new List<Attractions>();
         }
 
@@ -22,13 +21,13 @@ namespace WebTourist.Models
     {
         public string Name;
         public string Description;
-        public string CoordinateAt;
+        public string Coordinate;
 
-        public Attractions(string n, string d, string c)
+        public Attractions(string name, string description, string coordinate)
         {
-            Name = n;
-            Description = d;
-            CoordinateAt = c;
+            Name = name;
+            Description = description;
+            Coordinate = coordinate;
         }
 
     }

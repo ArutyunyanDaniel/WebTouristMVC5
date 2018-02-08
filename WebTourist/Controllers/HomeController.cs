@@ -23,12 +23,6 @@ namespace WebTourist.Controllers
         [HttpPost]
         public JsonResult EventButClickNextRoute(string userLocation)
         {
-            //var l = dbContext.SaveTable.ToList();
-            //string srr=string.Empty;
-            //foreach (var item in l)
-            //{
-            //    srr += item.IddVisitedExcursionRoute + " ";
-            //}
             return Json(dbContext.GetNextRoute(userLocation));
         }
 
