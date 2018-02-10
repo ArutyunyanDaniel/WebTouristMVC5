@@ -68,12 +68,13 @@ namespace WebTourist.Models
         }
 
 
-        public Point FindNearestWay(Point point)
+        public RouteInformation FindNearestWay(RouteInformation routeInformation)
         {
-            PointLatLng userLoc = new PointLatLng(point.coordinateLat, point.coordinateLng);
+            PointLatLng userLoc = new PointLatLng(routeInformation.startCoordinatesLat, routeInformation.startCoordinatesLng);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
+
             using (DbContextTourist dbContext = new DbContextTourist())
             {
                 List<Route> routes = dbContext.Routes.ToList();
@@ -91,19 +92,13 @@ namespace WebTourist.Models
                         }
                     }
                 }
-
             }
-
-
-            point.pathToExcursionRoute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
-            point.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
-
-            return point;
+            return PrepareRouteInformation(routeInformation, userLoc, nearestPoint, IdVisitedExcursionRout);
         }
 
-        public Point GetNextRoute(Point point)
+        public RouteInformation GetNextRoute(RouteInformation routeInformation)
         {
-            PointLatLng userLoc = new PointLatLng(point.coordinateLat, point.coordinateLng);
+            PointLatLng userLoc = new PointLatLng(routeInformation.startCoordinatesLat, routeInformation.startCoordinatesLng);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
@@ -115,7 +110,7 @@ namespace WebTourist.Models
 
                 foreach (var item in routes)
                 {
-                    if (!isVisited(item.ID, point.listIdVisitedRoutes))
+                    if (!isVisited(item.ID, routeInformation.listIdVisitedRoutes))
                     {
                         List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
                         foreach (var points in pointsStartedRoute)
@@ -130,16 +125,11 @@ namespace WebTourist.Models
                         }
                     }
                 }
-
             }
-            point.pathToExcursionRoute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
-            point.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
-            if (point.listIdVisitedRoutes.Count == countExcurisonRoutes)
-                point.listIdVisitedRoutes.Clear();
 
-            return point;
+            return PrepareRouteInformation(routeInformation, userLoc, nearestPoint,
+                IdVisitedExcursionRout, countExcurisonRoutes);
         }
-
 
         private bool isVisited(int id, List<int> listVisited)
         {
@@ -149,6 +139,19 @@ namespace WebTourist.Models
                     return true;
             }
             return false;
+        }
+
+        private RouteInformation PrepareRouteInformation(RouteInformation routeInformation, PointLatLng start, 
+            PointLatLng finish, int idVisitedRoute, int countExcurisonRoutes = -1)
+        {
+            var diraction = Map.GetDiraction(start, finish);
+            routeInformation.SetInformationAboutRoute(diraction);
+            routeInformation.listIdVisitedRoutes.Add(idVisitedRoute);
+
+            if (routeInformation.listIdVisitedRoutes.Count == countExcurisonRoutes)
+                routeInformation.listIdVisitedRoutes.Clear();
+            
+            return routeInformation;
         }
     }
 }

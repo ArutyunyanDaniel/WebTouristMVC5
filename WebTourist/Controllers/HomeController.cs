@@ -13,15 +13,15 @@ namespace WebTourist.Controllers
         }
 
         [HttpPost]
-        public JsonResult EventMouseClick(Point point)
+        public JsonResult EventMouseClick(RouteInformation routeInformation)
         {   
-            return Json(dbContext.FindNearestWay(point));
+            return Json(dbContext.FindNearestWay(routeInformation));
         }
 
         [HttpPost]
-        public JsonResult EventButClickNextRoute(Point point)
+        public JsonResult EventButClickNextRoute(RouteInformation routeInformation)
         {
-            return Json(dbContext.GetNextRoute(point));
+            return Json(dbContext.GetNextRoute(routeInformation));
         }
 
         protected override void Dispose(bool disposing)

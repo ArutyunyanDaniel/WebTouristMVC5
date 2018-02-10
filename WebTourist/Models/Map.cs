@@ -29,6 +29,16 @@ namespace WebTourist.Models
             return m_gDiractiaon.Route;
         }
 
+
+        static public GDirections GetDiraction(PointLatLng start, PointLatLng finish)
+        {
+            GDirections m_gDiractiaon = new GDirections();
+            GMapProviders.GoogleMap.GetDirections(out m_gDiractiaon, start, finish, true, true, true, false, true);
+            return m_gDiractiaon;
+        }
+
+
+
         static private GDirections m_gDiractiaon;
     }
 }

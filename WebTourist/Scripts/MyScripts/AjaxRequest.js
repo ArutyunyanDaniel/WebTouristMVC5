@@ -1,17 +1,18 @@
 ﻿function eventMouseClick(coordinates) {
-    var point = new Object();
-    point.coordinateLat = coordinates.lat();
-    point.coordinateLng = coordinates.lng();
+    var routeInformation = new Object();
+    routeInformation.startCoordinatesLat = coordinates.lat();
+    routeInformation.startCoordinatesLng = coordinates.lng();
 
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
-        data: JSON.stringify(point),
+        data: JSON.stringify(routeInformation),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             isEnterLocation = true;
-            checkPathtoExcursionRoute();
-            DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
+            showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
+            alert(data.Distance + ' ' + data.Duration);
             arrayIdVisitedExcursionRoutes = [];
             arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[0]);
         },
@@ -24,25 +25,24 @@ function eventButtomClick() {
         alert('Select your location');
         return;
     }
- 
-    var point = new Object();
-    point.coordinateLat = currentUserlocation.lat();
-    point.coordinateLng = currentUserlocation.lng();
-    point.listIdVisitedRoutes = [];
+
+    var routeInformation = new Object();
+    routeInformation.startCoordinatesLat = currentUserlocation.lat();
+    routeInformation.startCoordinatesLng = currentUserlocation.lng();
+    routeInformation.listIdVisitedRoutes = [];
 
     for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++)
-    {
-        point.listIdVisitedRoutes.push(arrayIdVisitedExcursionRoutes[i]);
-    }
-
+        routeInformation.listIdVisitedRoutes.push(arrayIdVisitedExcursionRoutes[i]);
+    
     $.ajax({
         type: "POST",
         url: "/Home/EventButClickNextRoute",
-        data: JSON.stringify( point ),
+        data: JSON.stringify(routeInformation ),
         contentType: "application/json; charset=utf-8",
-        success: function (data) { 
-            checkPathtoExcursionRoute();
-            DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
+        success: function (data) {
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
+            showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
+            alert(data.Distance + ' ' + data.Duration);
             arrayIdVisitedExcursionRoutes = [];
             for (var i = 0; i < data.listIdVisitedRoutes.length; i++)
             {

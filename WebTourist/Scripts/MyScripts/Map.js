@@ -1,6 +1,7 @@
 ﻿var map;
 var pathToExcursionRoute = null;
-var userMarker = null;
+var startRouteMarker = null;
+var finisRouteMarker = null;
 var arrayAttractionMarkers = [];
 var currentUserlocation = null;
 var isEnterLocation= false;
@@ -16,10 +17,9 @@ function initMap() {
 
     google.maps.event.addDomListener(window, 'load', initClustter);
 
-    map.addListener('click', function (e) {
-        placeMarkerAndPanTo(e.latLng, map);
-        currentUserlocation = e.latLng;
-        checkPathtoExcursionRoute();
+    map.addListener('click', function (e) {       
+        showStartRouteMarkerandPanTo(e.latLng, map);
+        currentUserlocation = e.latLng;    
         eventMouseClick(e.latLng);
     });
 }
@@ -31,10 +31,12 @@ function initClustter() {
     var markerCluster = new MarkerClusterer(map, arrayAttractionMarkers, options);
 }
 
-function placeMarkerAndPanTo(latLng, map) {
-    checkUserMarker();
+function showStartRouteMarkerandPanTo(latLng, map) {
+    checkStartMarker();
+    checkFinishMarker();
+    checkPathtoExcursionRoute();
 
-    userMarker = new google.maps.Marker({
+    startRouteMarker = new google.maps.Marker({
         position: latLng,
         map: map
     });
@@ -43,10 +45,28 @@ function placeMarkerAndPanTo(latLng, map) {
         content: "Your location."
     });
 
-    userMarker.addListener('click', function () {
-        infowindow.open(map, userMarker);
+    startRouteMarker.addListener('click', function () {
+        infowindow.open(map, startRouteMarker);
     });
     map.panTo(latLng);
+}
+
+function showFinishRouteMarker(coordinateLat, coordinateLng, map) {
+    checkFinishMarker();
+    var myLatLng = { lat: coordinateLat, lng: coordinateLng };
+
+    finisRouteMarker = new google.maps.Marker({
+        position: myLatLng,
+        map: map
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+        content: "The beginning of the excursion route!"
+    });
+
+    finisRouteMarker.addListener('click', function () {
+        infowindow.open(map, finisRouteMarker);
+    });
 }
 
 function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
@@ -68,6 +88,7 @@ function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
 }
 
 function DrawPathToExcursionRoute(route) {
+    checkPathtoExcursionRoute();
     pathToExcursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
@@ -89,10 +110,17 @@ function DrawExcursionRoutes(route) {
     excursionRoute.setMap(map);
 }
 
-function checkUserMarker() {
-    if (userMarker !== null) {
-        userMarker.setMap(null);
-        userMarker = null;
+function checkStartMarker() {
+    if (startRouteMarker !== null) {
+        startRouteMarker.setMap(null);
+        startRouteMarker = null;
+    }
+}
+
+function checkFinishMarker() {
+     if (finisRouteMarker !== null) {
+        finisRouteMarker.setMap(null);
+        finisRouteMarker = null;
     }
 }
 
