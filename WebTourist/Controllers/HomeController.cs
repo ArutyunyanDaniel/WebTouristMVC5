@@ -21,16 +21,12 @@ namespace WebTourist.Controllers
 
 
         [HttpPost]
-        public JsonResult EventButClickNextRoute2(Point point)
+        public JsonResult EventButClickNextRoute(Point point)
         {
             return Json(dbContext.GetNextRoute(point));
         }
 
-        //[HttpPost]
-        //public JsonResult EventButClickNextRoute(string userLocation)
-        //{
-        //    return Json(dbContext.GetNextRoute(userLocation));
-        //}
+
 
         protected override void Dispose(bool disposing)
         {

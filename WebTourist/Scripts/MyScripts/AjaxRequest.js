@@ -37,7 +37,7 @@ function eventButtomClick() {
 
     $.ajax({
         type: "POST",
-        url: "/Home/EventButClickNextRoute2",
+        url: "/Home/EventButClickNextRoute",
         data: JSON.stringify( point ),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
