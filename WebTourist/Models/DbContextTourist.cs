@@ -71,17 +71,46 @@ namespace WebTourist.Models
         }
 
 
-        public string FindNearestWay(string userLocation)
+        //public string FindNearestWay(string userLocation)
+        //{
+        //    PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+        //    PointLatLng nearestPoint = new PointLatLng();
+        //    double maxDistance = Double.MaxValue;
+
+        //    using (DbContextTourist dbContext = new DbContextTourist())
+        //    {
+        //        CleareTableVisitedRoutes(dbContext);
+        //        List<Route> routes = dbContext.Routes.ToList();
+        //        int IdVisitedExcursionRout = 0;
+        //        foreach (var item in routes)
+        //        {
+        //            List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
+        //            foreach (var point in pointsStartedRoute)
+        //            {
+        //                double distance = Map.GetRouteDistance(userLoc, point);
+        //                if (distance < maxDistance)
+        //                {
+        //                    maxDistance = distance;
+        //                    nearestPoint = point;
+        //                    IdVisitedExcursionRout = item.ID;
+        //                }
+        //            }
+        //        }
+        //        AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
+        //    }
+        //    return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+        //}
+
+
+        public Point FindNearestWay(Point userLocation)
         {
-            PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+            PointLatLng userLoc = new PointLatLng(userLocation.coordinateLat, userLocation.coordinateLng);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
-
+            int IdVisitedExcursionRout = 0;
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                CleareTableVisitedRoutes(dbContext);
                 List<Route> routes = dbContext.Routes.ToList();
-                int IdVisitedExcursionRout = 0;
                 foreach (var item in routes)
                 {
                     List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
@@ -96,69 +125,101 @@ namespace WebTourist.Models
                         }
                     }
                 }
-                AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
+
             }
-            return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+            string pathToExcursionROute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+            Point result = new Point();
+            result.pathToExcursionRoute = pathToExcursionROute;
+            result.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
+
+
+            return result;
         }
 
-        public string GetNextRoute(string userLocation)
+        //public string GetNextRoute(string userLocation)
+        //{
+        //    PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+        //    PointLatLng nearestPoint = new PointLatLng();
+        //    double maxDistance = Double.MaxValue;
+
+        //    using (DbContextTourist dbContext = new DbContextTourist())
+        //    {
+        //        List<Route> routes = dbContext.Routes.ToList();
+        //        List<SaveTable> listVisitedExcursionRoute = dbContext.SaveTable.ToList();
+
+        //        int IdVisitedExcursionRout = 0;
+        //        foreach (var item in routes)
+        //        {
+        //            if (listVisitedExcursionRoute.Count() == dbContext.Routes.Count())
+        //            {
+        //                CleareTableVisitedRoutes(dbContext);
+        //                listVisitedExcursionRoute = dbContext.SaveTable.ToList();
+        //            }
+
+        //            if (!isVisited(item.ID, listVisitedExcursionRoute))
+        //            {
+        //                List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
+        //                foreach (var point in pointsStartedRoute)
+        //                {
+        //                    double distance = Map.GetRouteDistance(userLoc, point);
+        //                    if (distance < maxDistance)
+        //                    {
+        //                        maxDistance = distance;
+        //                        nearestPoint = point;
+        //                        IdVisitedExcursionRout = item.ID;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
+        //    }
+        //    return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+        //}
+
+
+        public Point GetNextRoute(Point point)
         {
-            PointLatLng userLoc = Helper.StringPointToPointLatLng(userLocation);
+            PointLatLng userLoc = new PointLatLng(point.coordinateLat, point.coordinateLng);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
-            
+            int IdVisitedExcursionRout = 0;
+
             using (DbContextTourist dbContext = new DbContextTourist())
             {
                 List<Route> routes = dbContext.Routes.ToList();
-                List<SaveTable> listVisitedExcursionRoute = dbContext.SaveTable.ToList();
 
-                int IdVisitedExcursionRout = 0;
                 foreach (var item in routes)
                 {
-                    if (listVisitedExcursionRoute.Count() == dbContext.Routes.Count())
-                    { 
-                        CleareTableVisitedRoutes(dbContext);
-                        listVisitedExcursionRoute = dbContext.SaveTable.ToList();
-                    }
-
-                    if (!isVisited(item.ID, listVisitedExcursionRoute))
+                    if (!isVisited(item.ID, point.listIdVisitedRoutes))
                     {
                         List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
-                        foreach (var point in pointsStartedRoute)
+                        foreach (var points in pointsStartedRoute)
                         {
-                            double distance = Map.GetRouteDistance(userLoc, point);
+                            double distance = Map.GetRouteDistance(userLoc, points);
                             if (distance < maxDistance)
                             {
                                 maxDistance = distance;
-                                nearestPoint = point;
+                                nearestPoint = points;
                                 IdVisitedExcursionRout = item.ID;
                             }
                         }
                     }
                 }
-                AddIdRouteToSaveTable(dbContext, IdVisitedExcursionRout);
+
             }
-            return Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+            point.pathToExcursionRoute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+            point.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
+            if (point.listIdVisitedRoutes.Count == 3)
+                point.listIdVisitedRoutes = new List<int>();
+            return point;
         }
 
-        private void CleareTableVisitedRoutes(DbContextTourist db)
-        {
-            db.SaveTable.RemoveRange(db.SaveTable);
-            db.SaveChanges();
-        }
 
-        private void AddIdRouteToSaveTable(DbContextTourist db, int id)
+        private bool isVisited(int id, List<int> listVisited)
         {
-            SaveTable sT = new SaveTable();
-            sT.IddVisitedExcursionRoute = id;
-            db.SaveTable.Add(sT);
-            db.SaveChanges();
-        }
-        private bool isVisited(int id, List<SaveTable> listVisited)
-        { 
             foreach (var item in listVisited)
             {
-                if (item.IddVisitedExcursionRoute == id)
+                if (item == id)
                     return true;
             }
             return false;

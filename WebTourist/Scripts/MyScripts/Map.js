@@ -4,6 +4,8 @@ var userMarker = null;
 var arrayAttractionMarkers = [];
 var currentUserlocation = null;
 var isEnterLocation= false;
+var arrayIdVisitedExcursionRoutes = [];
+
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -17,9 +19,7 @@ function initMap() {
     map.addListener('click', function (e) {
         placeMarkerAndPanTo(e.latLng, map);
         currentUserlocation = e.latLng;
-
         checkPathtoExcursionRoute();
-
         eventMouseClick(e.latLng);
     });
 }

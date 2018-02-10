@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Models\Attraction.cs" />
     <Compile Include="Models\DbContextTourist.cs" />
+    <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="Models\RouteAttraction.cs" />
     <Compile Include="Models\SaveTable.cs" />

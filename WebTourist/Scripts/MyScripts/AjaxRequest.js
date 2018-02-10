@@ -1,25 +1,54 @@
-﻿function eventMouseClick(coordinates) {
+﻿
+
+function eventMouseClick(coordinates) {
+    var point = new Object();
+    point.coordinateLat = coordinates.lat();
+    point.coordinateLng = coordinates.lng();
+
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
-        data: { userLocation: String(coordinates.lat() + ' ' + coordinates.lng()) },
-        datatype: "json",
-        success: successFunc,
+        data: JSON.stringify(point),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            checkPathtoExcursionRoute();
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
+            arrayIdVisitedExcursionRoutes = [];
+            arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[0]);
+        },
         error: errorFunc
     });
 }
 
 function eventButtomClick() {
-    if (!isEnterLocation) {
-        alert('Select your location');
-        return;
+
+    //if (!isEnterLocation) {
+    //    alert('Select your location');
+    //    return;
+    //}
+ 
+    var point = new Object();
+    point.coordinateLat = currentUserlocation.lat();
+    point.coordinateLng = currentUserlocation.lng();
+    point.listIdVisitedRoutes = [];
+    for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++) {
+        point.listIdVisitedRoutes.push(arrayIdVisitedExcursionRoutes[i]);
     }
+
     $.ajax({
         type: "POST",
-        url: "/Home/EventButClickNextRoute",
-        data: { userLocation: String(currentUserlocation.lat() + ' ' + currentUserlocation.lng()) },
+        url: "/Home/EventButClickNextRoute2",
+        data: JSON.stringify( point ),
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: successFunc,
+        success: function (data) {
+            checkPathtoExcursionRoute();
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
+            arrayIdVisitedExcursionRoutes = [];
+            for (var i = 0; i < data.listIdVisitedRoutes.length; i++) {
+                arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[i]);
+            }
+        },
         error: errorFunc
     });
 }
