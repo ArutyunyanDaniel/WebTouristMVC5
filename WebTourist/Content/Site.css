@@ -5,10 +5,12 @@
     color: #666666;
     font-size: 20px;
     margin: 0 0 0 0;
+    padding: 11px;
     cursor: pointer;
     bottom: 0;
     right: 0;
     font-weight: bolder;
+    border-radius: 10px;
 }
 
 .butPossition {
@@ -32,4 +34,17 @@ html, body {
     position: absolute;
     bottom: 2%;
     left: 50%;
+}
+
+.distanceDuration {
+    float: right;
+    background-color: #ffffff;
+    border: none;
+    border-radius:10px;
+    color: #666666;
+    font-size: 18px;
+    margin: 0 0 0 0;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 2px 15px 2px 6px;
 }

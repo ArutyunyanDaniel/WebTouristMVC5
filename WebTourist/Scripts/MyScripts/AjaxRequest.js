@@ -12,7 +12,12 @@
             isEnterLocation = true;
             DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
-            alert(data.Distance + ' ' + data.Duration);
+
+            $("#distance").text(data.Distance);
+            $("#duration").text(data.Duration);
+
+          
+
             arrayIdVisitedExcursionRoutes = [];
             arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[0]);
         },
@@ -42,7 +47,11 @@ function eventButtomClick() {
         success: function (data) {
             DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
-            alert(data.Distance + ' ' + data.Duration);
+            console.log(data.Distance);
+            console.log(data.Duration);
+            console.log($("#distance"));
+            $("#distance").text(data.Distance);
+            $("#duration").text(data.Duration);
             arrayIdVisitedExcursionRoutes = [];
             for (var i = 0; i < data.listIdVisitedRoutes.length; i++)
             {
