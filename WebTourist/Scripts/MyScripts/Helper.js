@@ -13,6 +13,5 @@ function stringToArrayLatLng(coordinatesString) {
         var latLng = new google.maps.LatLng(parseFloat(item[0]), parseFloat(item[1]));
         arrayCoordinates.push({ lat: latLng.lat(), lng: latLng.lng() });
     }
-
     return arrayCoordinates;
 }

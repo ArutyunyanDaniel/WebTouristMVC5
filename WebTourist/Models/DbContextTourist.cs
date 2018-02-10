@@ -17,9 +17,6 @@ namespace WebTourist.Models
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<RouteAttraction> RouteAttractions { get; set; }
 
-
-        public virtual DbSet<SaveTable> SaveTable { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attraction>()
@@ -71,9 +68,9 @@ namespace WebTourist.Models
         }
 
 
-        public Point FindNearestWay(Point userLocation)
+        public Point FindNearestWay(Point point)
         {
-            PointLatLng userLoc = new PointLatLng(userLocation.coordinateLat, userLocation.coordinateLng);
+            PointLatLng userLoc = new PointLatLng(point.coordinateLat, point.coordinateLng);
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
@@ -83,26 +80,25 @@ namespace WebTourist.Models
                 foreach (var item in routes)
                 {
                     List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
-                    foreach (var point in pointsStartedRoute)
+                    foreach (var pointSR in pointsStartedRoute)
                     {
-                        double distance = Map.GetRouteDistance(userLoc, point);
+                        double distance = Map.GetRouteDistance(userLoc, pointSR);
                         if (distance < maxDistance)
                         {
                             maxDistance = distance;
-                            nearestPoint = point;
+                            nearestPoint = pointSR;
                             IdVisitedExcursionRout = item.ID;
                         }
                     }
                 }
 
             }
-            string pathToExcursionROute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
-            Point result = new Point();
-            result.pathToExcursionRoute = pathToExcursionROute;
-            result.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
 
 
-            return result;
+            point.pathToExcursionRoute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
+            point.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
+
+            return point;
         }
 
         public Point GetNextRoute(Point point)
@@ -111,10 +107,11 @@ namespace WebTourist.Models
             PointLatLng nearestPoint = new PointLatLng();
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
-
+            int countExcurisonRoutes = 0;
             using (DbContextTourist dbContext = new DbContextTourist())
             {
                 List<Route> routes = dbContext.Routes.ToList();
+                countExcurisonRoutes = routes.Count();
 
                 foreach (var item in routes)
                 {
@@ -137,8 +134,8 @@ namespace WebTourist.Models
             }
             point.pathToExcursionRoute = Helper.ListLatLngToString(Map.GetRoute(userLoc, nearestPoint));
             point.listIdVisitedRoutes.Add(IdVisitedExcursionRout);
-            if (point.listIdVisitedRoutes.Count == 3)
-                point.listIdVisitedRoutes = new List<int>();
+            if (point.listIdVisitedRoutes.Count == countExcurisonRoutes)
+                point.listIdVisitedRoutes.Clear();
 
             return point;
         }

@@ -1,6 +1,4 @@
 ﻿using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.MapProviders;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -10,14 +8,6 @@ namespace WebTourist.Models
 {
     static public class Helper
     {
-        static public PointLatLng StringPointToPointLatLng(string str)
-        {
-            var item = str.Split(' ');
-            double lat = double.Parse(item[0], CultureInfo.InvariantCulture);
-            double lon = double.Parse(item[1], CultureInfo.InvariantCulture);
-            return new PointLatLng(lat, lon);
-        }
-
         static public string ListLatLngToString(List<PointLatLng> route)
         {
             var stringBuilder = new StringBuilder();
@@ -82,6 +72,7 @@ namespace WebTourist.Models
             {
                 if (item == ',')
                     flagPunctuation = true;
+
                 if (Char.IsDigit(item) || item == ',' || item == ' ' || item == '.')
                 {
                     if (item == ' ' && flagPunctuation == true)
@@ -92,12 +83,13 @@ namespace WebTourist.Models
                     {
                         strinBuilder.Append(item);
                     }
-                    
                 }
             }
+
             string resultString = strinBuilder.ToString();
             if (resultString[0] == ' ')
                 resultString = resultString.Remove(0, 1);
+
             return resultString;
         }
 

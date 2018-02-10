@@ -1,6 +1,4 @@
-﻿
-
-function eventMouseClick(coordinates) {
+﻿function eventMouseClick(coordinates) {
     var point = new Object();
     point.coordinateLat = coordinates.lat();
     point.coordinateLng = coordinates.lng();
@@ -11,6 +9,7 @@ function eventMouseClick(coordinates) {
         data: JSON.stringify(point),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+            isEnterLocation = true;
             checkPathtoExcursionRoute();
             DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
             arrayIdVisitedExcursionRoutes = [];
@@ -21,17 +20,18 @@ function eventMouseClick(coordinates) {
 }
 
 function eventButtomClick() {
-
-    //if (!isEnterLocation) {
-    //    alert('Select your location');
-    //    return;
-    //}
+   if (!isEnterLocation) {
+        alert('Select your location');
+        return;
+    }
  
     var point = new Object();
     point.coordinateLat = currentUserlocation.lat();
     point.coordinateLng = currentUserlocation.lng();
     point.listIdVisitedRoutes = [];
-    for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++) {
+
+    for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++)
+    {
         point.listIdVisitedRoutes.push(arrayIdVisitedExcursionRoutes[i]);
     }
 
@@ -40,23 +40,17 @@ function eventButtomClick() {
         url: "/Home/EventButClickNextRoute",
         data: JSON.stringify( point ),
         contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
+        success: function (data) { 
             checkPathtoExcursionRoute();
             DrawPathToExcursionRoute(stringToArrayLatLng(data.pathToExcursionRoute));
             arrayIdVisitedExcursionRoutes = [];
-            for (var i = 0; i < data.listIdVisitedRoutes.length; i++) {
+            for (var i = 0; i < data.listIdVisitedRoutes.length; i++)
+            {
                 arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[i]);
             }
         },
         error: errorFunc
     });
-}
-
-function successFunc(data) {
-    isEnterLocation = true;
-    checkPathtoExcursionRoute();
-    DrawPathToExcursionRoute(stringToArrayLatLng(data));
 }
 
 function errorFunc(errorData) {

@@ -1,13 +1,7 @@
 ﻿using GMap.NET;
-using GMap.NET.WindowsForms;
 using GMap.NET.MapProviders;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System;
-using System.Threading.Tasks;
-using System.IO;
-using System.Threading;
 
 namespace WebTourist.Models
 {
