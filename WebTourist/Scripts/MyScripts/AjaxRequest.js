@@ -8,15 +8,12 @@
         url: "/Home/EventMouseClick",
         data: JSON.stringify(routeInformation),
         contentType: "application/json; charset=utf-8",
+
         success: function (data) {
             isEnterLocation = true;
             DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
-
-            $("#distance").text(data.Distance);
-            $("#duration").text(data.Duration);
-
-          
+            showDistanceDuration(data.Distance, data.Duration);         
 
             arrayIdVisitedExcursionRoutes = [];
             arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[0]);
@@ -44,24 +41,25 @@ function eventButtomClick() {
         url: "/Home/EventButClickNextRoute",
         data: JSON.stringify(routeInformation ),
         contentType: "application/json; charset=utf-8",
+
         success: function (data) {
             DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
-            console.log(data.Distance);
-            console.log(data.Duration);
-            console.log($("#distance"));
-            $("#distance").text(data.Distance);
-            $("#duration").text(data.Duration);
+            showDistanceDuration(data.Distance, data.Duration);
+
             arrayIdVisitedExcursionRoutes = [];
             for (var i = 0; i < data.listIdVisitedRoutes.length; i++)
             {
                 arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[i]);
             }
         },
+
         error: errorFunc
+
     });
 }
 
 function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
+

@@ -16,7 +16,7 @@
 .butPossition {
     position: absolute;
     bottom: 6%;
-    left: 50%;
+    left: 42%;
 }
 
 #map {
@@ -28,12 +28,6 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-.checkboxPosition {
-    position: absolute;
-    bottom: 2%;
-    left: 50%;
 }
 
 .distanceDuration {

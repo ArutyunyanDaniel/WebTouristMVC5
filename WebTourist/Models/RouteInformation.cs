@@ -25,7 +25,7 @@ namespace WebTourist.Models
         public List<int> listIdVisitedRoutes { get; set; }
         public string Route { get; set; }
 
-        public void SetInformationAboutRoute(GDirections diraction)
+        public void SetInformationAboutRoute(GDirections diraction,int idVisitedRoute)
         {
             startCoordinatesLat = diraction.StartLocation.Lat;
             startCoordinatesLng = diraction.StartLocation.Lng;
@@ -36,6 +36,7 @@ namespace WebTourist.Models
             Distance = diraction.Distance;
             Duration = diraction.Duration;
 
+            listIdVisitedRoutes.Add(idVisitedRoute);
             Route = Helper.ListLatLngToString(diraction.Route);
         }
 

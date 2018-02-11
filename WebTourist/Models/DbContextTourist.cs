@@ -145,8 +145,7 @@ namespace WebTourist.Models
             PointLatLng finish, int idVisitedRoute, int countExcurisonRoutes = -1)
         {
             var diraction = Map.GetDiraction(start, finish);
-            routeInformation.SetInformationAboutRoute(diraction);
-            routeInformation.listIdVisitedRoutes.Add(idVisitedRoute);
+            routeInformation.SetInformationAboutRoute(diraction, idVisitedRoute);
 
             if (routeInformation.listIdVisitedRoutes.Count == countExcurisonRoutes)
                 routeInformation.listIdVisitedRoutes.Clear();

@@ -29,8 +29,6 @@ namespace WebTourist.Models
         public string CoordinatesStartingPointsRouteOGC { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RouteAttraction> RouteAttractions { get; set; }
-
-       
+        public virtual ICollection<RouteAttraction> RouteAttractions { get; set; }   
     }
 }

@@ -69,6 +69,11 @@ function showFinishRouteMarker(coordinateLat, coordinateLng, map) {
     });
 }
 
+function showDistanceDuration(distance, duration) {
+    $("#distance").text(distance);
+    $("#duration").text(duration);
+}
+
 function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
     var marker = new google.maps.Marker({
         position: latLng,
