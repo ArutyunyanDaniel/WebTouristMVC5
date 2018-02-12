@@ -8,23 +8,33 @@
     <title>ourist</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/favicon.ico" />
-    @Scripts.Render("~/bundles/myscripts")
-    @Scripts.Render("~/bundles/markerCluster")
+
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/scripts/jquery-3.3.1.js")
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
 
 </head>
-<body onload="loadPage()">
+<body>
+
     <div id="map"></div>
+    <div id="transparentBackground">
+        <div id="notification">
+            Route is searched
+            <div id="preloader"></div>
+        </div>
+    </div>
+
+
 
     <div class="butPossition">
-        <input  type="button" onclick="eventButtomClick()" class="button" value="Next Route">
+        <input type="button" id="but1" class="button" value="Next Route">
         <div class="distanceDuration">
             <div>Distance: <span id="distance">  </span> </div>
             <div>Duration: <span id="duration">  </span> </div>
-        </div>  
+        </div>
     </div>
+
+
 
     <script>
         function loadPage()
@@ -44,7 +54,11 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>
     </script>
-   
+
+
+
+    @Scripts.Render("~/bundles/myscripts")
+    @Scripts.Render("~/bundles/markerCluster")       
 </body>
 </html>
 
