@@ -111,12 +111,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgb(43,160,199);
-            animation: cssload-fold-thecube 2.76s infinite linear both;
-            -o-animation: cssload-fold-thecube 2.76s infinite linear both;
-            -ms-animation: cssload-fold-thecube 2.76s infinite linear both;
-            -webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
-            -moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+            background-color: rgb(0,179,253);
+            animation: cssload-fold-thecube 1.56s infinite linear both;
+            -o-animation: cssload-fold-thecube 1.56s infinite linear both;
+            -ms-animation: cssload-fold-thecube 1.56s infinite linear both;
+            -webkit-animation: cssload-fold-thecube 1.56s infinite linear both;
+            -moz-animation: cssload-fold-thecube 1.56s infinite linear both;
             transform-origin: 100% 100%;
             -o-transform-origin: 100% 100%;
             -ms-transform-origin: 100% 100%;
@@ -149,27 +149,27 @@
     }
 
     .cssload-thecube .cssload-c2:before {
-        animation-delay: 0.35s;
-        -o-animation-delay: 0.35s;
-        -ms-animation-delay: 0.35s;
-        -webkit-animation-delay: 0.35s;
-        -moz-animation-delay: 0.35s;
+        animation-delay: 0.195s;
+        -o-animation-delay: 0.195s;
+        -ms-animation-delay: 0.195s;
+        -webkit-animation-delay: 0.195s;
+        -moz-animation-delay: 0.195s;
     }
 
     .cssload-thecube .cssload-c3:before {
-        animation-delay: 0.69s;
-        -o-animation-delay: 0.69s;
-        -ms-animation-delay: 0.69s;
-        -webkit-animation-delay: 0.69s;
-        -moz-animation-delay: 0.69s;
+        animation-delay: 0.39s;
+        -o-animation-delay: 0.39s;
+        -ms-animation-delay: 0.39s;
+        -webkit-animation-delay: 0.39s;
+        -moz-animation-delay: 0.39s;
     }
 
     .cssload-thecube .cssload-c4:before {
-        animation-delay: 1.04s;
-        -o-animation-delay: 1.04s;
-        -ms-animation-delay: 1.04s;
-        -webkit-animation-delay: 1.04s;
-        -moz-animation-delay: 1.04s;
+        animation-delay: 0.585s;
+        -o-animation-delay: 0.585s;
+        -ms-animation-delay: 0.585s;
+        -webkit-animation-delay: 0.585s;
+        -moz-animation-delay: 0.585s;
     }
 
 
