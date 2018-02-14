@@ -8,26 +8,23 @@
         url: "/Home/EventMouseClick",
         data: JSON.stringify(routeInformation),
         contentType: "application/json; charset=utf-8",
-        beforeSend: function () {
-            $("#transparentBackground").show('slow');
-            $("#preloader").show('slow');
-        },
+        beforeSend: showTransparentBackgroundAndPreloader,
+
         success: function (data) {
             isEnterLocation = true;
             DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
             showDistanceDuration(data.Distance, data.Duration);
-            
+
             arrayIdVisitedExcursionRoutes = [];
             arrayIdVisitedExcursionRoutes.push(data.listIdVisitedRoutes[0]);
         },
-        complete: function () {
-            $("#transparentBackground").hide('slow');
-            $("#preloader").hide('slow');
-        },
+
+        complete: hideTransparentBackgroundAndPreloader,
+
         error: errorFunc
     });
-   
+
 }
 
 function eventButtomClick() {
@@ -61,21 +58,32 @@ function eventButtomClick() {
         },
         error: errorFunc
     });
-    
+
 }
+
+function showTransparentBackgroundAndPreloader() {
+    $("#transparentBackground").show('slow');
+    $("#preloader").show('slow');
+}
+
+function hideTransparentBackgroundAndPreloader() {
+    $("#transparentBackground").hide('slow');
+    $("#preloader").hide('slow');
+}
+
 
 function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
 
-$(document).ready(function () {
-    $('#but1').click(eventButtomClick);
-    $("#but1").mouseover(function () {
-        $(this).css("color", "#00B3FD");
-    });
-    $("#but1").mouseout(function () {
-        $(this).css("color", "#666666");
-    });
+$('#but1').click(eventButtomClick);
+
+$("#but1").mouseover(function () {
+    $(this).css("color", "#00B3FD");
+});
+
+$("#but1").mouseout(function () {
+    $(this).css("color", "#666666");
 });
 
 $(document).ready(loadPage);

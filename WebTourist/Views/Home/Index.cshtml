@@ -17,14 +17,19 @@
 <body>
 
     <div id="map"></div>
+
+
     <div id="transparentBackground">
         <div id="notification">
             Searching
-            <div id="preloader"></div>
+            <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+            </div>
         </div>
     </div>
-
-
 
     <div class="butPossition">
         <input type="button" id="but1" class="button" value="Next Route">
@@ -33,8 +38,6 @@
             <div>Duration: <span id="duration">  </span> </div>
         </div>
     </div>
-
-
 
     <script>
         function loadPage()
@@ -51,14 +54,13 @@
 
     </script>
 
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>
     </script>
 
-
-
     @Scripts.Render("~/bundles/myscripts")
-    @Scripts.Render("~/bundles/markerCluster")       
+    @Scripts.Render("~/bundles/markerCluster")
 </body>
 </html>
 

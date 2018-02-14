@@ -200,6 +200,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\100.gif" />
+    <Content Include="Images\484.GIF" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\cluster1.png" />
     <Content Include="Images\museum.png" />
