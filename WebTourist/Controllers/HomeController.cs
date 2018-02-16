@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using WebTourist.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebTourist.Controllers
 {
@@ -9,12 +11,18 @@ namespace WebTourist.Controllers
 
         public  ActionResult Index()
         {
-            return View(dbContext.GetAttractionAndExcursionRoutes());
+            return View(dbContext.GetAttractions());
+        }
+
+        [HttpGet]
+        public JsonResult EventCheckBoxClick()
+        {
+            return Json(dbContext.GetExcursionRoutes(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult EventMouseClick(RouteInformation routeInformation)
-        {   
+        {
             return Json(dbContext.FindNearestWay(routeInformation));
         }
 

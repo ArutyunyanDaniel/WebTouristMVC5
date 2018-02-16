@@ -32,6 +32,11 @@ namespace WebTourist
 
             bundles.Add(new ScriptBundle("~/bundles/markerCluster").Include(
                         "~/Scripts/markerclusterer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminJs").Include(
+                        "~/Scripts/AdminScripts/*.js"));
+
+          
         }
     }
 }

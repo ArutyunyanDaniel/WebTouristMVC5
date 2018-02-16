@@ -12,7 +12,9 @@
 
         success: function (data) {
             isEnterLocation = true;
-            DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.WayToExcursionRoute));
+            DrawExcursionRoutes(stringToArrayLatLng(data.ExcursionRoute));
+
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
             showDistanceDuration(data.Distance, data.Duration);
 
@@ -48,7 +50,9 @@ function eventButtomClick() {
         contentType: "application/json; charset=utf-8",
 
         success: function (data) {
-            DrawPathToExcursionRoute(stringToArrayLatLng(data.Route));
+            DrawPathToExcursionRoute(stringToArrayLatLng(data.WayToExcursionRoute));
+            DrawExcursionRoutes(stringToArrayLatLng(data.ExcursionRoute));
+
             showFinishRouteMarker(data.finishCoordinatesLat, data.finishCoordinatesLng, map);
             showDistanceDuration(data.Distance, data.Duration);
 
@@ -59,6 +63,32 @@ function eventButtomClick() {
         error: errorFunc
     });
 
+}
+
+function eventCheckBoxClick() {
+    if ($('#check1').prop('checked')) {
+        $.ajax({
+            type: "GET",
+            url: "/Home/EventCheckBoxClick",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    DrawExcursionRoutesWhenClickCheckBox(stringToArrayLatLng(data[i]));
+                }
+            },
+
+            error: errorFunc
+        });
+    }
+    else {
+        for (var i = 0; i < arrayPolyne.length; i++) {
+            if (arrayPolyne[i] !== null) {
+                arrayPolyne[i].setMap(null);
+                arrayPolyne[i] = null;
+            }
+        }
+    }
 }
 
 function showTransparentBackgroundAndPreloader() {
@@ -87,3 +117,7 @@ $("#but1").mouseout(function () {
 });
 
 $(document).ready(loadPage);
+
+$('#check1').click(eventCheckBoxClick);
+
+

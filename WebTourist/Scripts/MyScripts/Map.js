@@ -6,7 +6,8 @@ var arrayAttractionMarkers = [];
 var currentUserlocation = null;
 var isEnterLocation= false;
 var arrayIdVisitedExcursionRoutes = [];
-
+var excursionRoute = null;
+var arrayPolyne = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -17,7 +18,12 @@ function initMap() {
 
     google.maps.event.addDomListener(window, 'load', initClustter);
 
-    map.addListener('click', function (e) {       
+    map.addListener('click', function (e) {    
+        checkStartMarker();
+        checkFinishMarker();
+        checkPathtoExcursionRoute();
+        checkExcursionRoute();
+
         showStartRouteMarkerandPanTo(e.latLng, map);
         currentUserlocation = e.latLng;    
         eventMouseClick(e.latLng);
@@ -31,11 +37,7 @@ function initClustter() {
     var markerCluster = new MarkerClusterer(map, arrayAttractionMarkers, options);
 }
 
-function showStartRouteMarkerandPanTo(latLng, map) {
-    checkStartMarker();
-    checkFinishMarker();
-    checkPathtoExcursionRoute();
-
+function showStartRouteMarkerandPanTo(latLng, map) {        
     startRouteMarker = new google.maps.Marker({
         position: latLng,
         map: map
@@ -74,7 +76,7 @@ function showDistanceDuration(distance, duration) {
     $("#duration").text(duration);
 }
 
-function AddMarkerToArrayForClusterMarker(latLng, name, description, map) {
+function AddMarkerToArrayForClusterMarker(name, description, latLng) {
     var marker = new google.maps.Marker({
         position: latLng,
         title: name,
@@ -97,15 +99,30 @@ function DrawPathToExcursionRoute(route) {
     pathToExcursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
-        strokeColor: '#023a72',
+        strokeColor: '#00B3FD',
         strokeOpacity: 1.0,
         strokeWeight: 6
     });
     pathToExcursionRoute.setMap(map);
 }
 
+
+function DrawExcursionRoutesWhenClickCheckBox(route) {
+    
+   var temp = new google.maps.Polyline({
+        path: route,
+        geodesic: true,
+        strokeColor: '#00B3FD',
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+   temp.setMap(map);
+   arrayPolyne.push(temp);
+}
+
 function DrawExcursionRoutes(route) {
-    var excursionRoute = new google.maps.Polyline({
+    checkExcursionRoute();
+     excursionRoute = new google.maps.Polyline({
         path: route,
         geodesic: true,
         strokeColor: '#00B3FD',
@@ -133,5 +150,12 @@ function checkPathtoExcursionRoute() {
     if (pathToExcursionRoute !== null) {
         pathToExcursionRoute.setMap(null);
         pathToExcursionRoute = null;
+    }
+}
+
+function checkExcursionRoute() {
+    if (excursionRoute !== null) {
+        excursionRoute.setMap(null);
+        excursionRoute = null;
     }
 }
