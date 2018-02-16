@@ -17,30 +17,32 @@
 <body>
 
     <div id="map"></div>
-    <input type="checkbox" name="cb1" id="check1" value="1"/>
-         
+   
 
-            <div id="transparentBackground">
-                <div id="notification">
-                    Searching
-                    <div class="cssload-thecube">
-                        <div class="cssload-cube cssload-c1"></div>
-                        <div class="cssload-cube cssload-c2"></div>
-                        <div class="cssload-cube cssload-c4"></div>
-                        <div class="cssload-cube cssload-c3"></div>
-                    </div>
-                </div>
+
+    <div id="transparentBackground">
+        <div id="notification">
+            <span>Searching</span>
+            <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
             </div>
+        </div>
+    </div>
 
-            <div class="butPossition">
-                <input type="button" id="but1" class="button" value="Next Route">
-                <div class="distanceDuration">
-                    <div>Distance: <span id="distance">  </span> </div>
-                    <div>Duration: <span id="duration">  </span> </div>
-                </div>
-            </div>
+    <div class="butPossition">
+        <input type="button" id="but1" class="button" value="Next Route">
+        <div class="distanceDuration">
+            <div>Distance: <span id="distance">  </span> </div>
+            <div>Duration: <span id="duration">  </span> </div>
+        </div>
+        <label id="text"><input type="checkbox" id="checkbox" value="1" /> Show excursion routes</label>
+        
+    </div>
 
-            <script>
+    <script>
         function loadPage()
         {
                 @foreach (var item in Model)
@@ -49,15 +51,15 @@
                 }
         }
 
-            </script>
+    </script>
 
 
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
-                    async defer>
-            </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
+            async defer>
+    </script>
 
-            @Scripts.Render("~/bundles/myscripts")
-            @Scripts.Render("~/bundles/markerCluster")
+    @Scripts.Render("~/bundles/myscripts")
+    @Scripts.Render("~/bundles/markerCluster")
 </body>
 </html>
 
