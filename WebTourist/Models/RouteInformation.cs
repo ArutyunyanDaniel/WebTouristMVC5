@@ -25,6 +25,7 @@ namespace WebTourist.Models
         public List<int> listIdVisitedRoutes { get; set; }
         public string WayToExcursionRoute { get; set; }
         public string ExcursionRoute { get; set; }
+
         public void SetInformationAboutRoute(GDirections diraction,int idVisitedRoute)
         {
             startCoordinatesLat = diraction.StartLocation.Lat;
