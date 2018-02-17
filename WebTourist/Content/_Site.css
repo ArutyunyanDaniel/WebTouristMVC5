@@ -1,0 +1,93 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+#transparentBackground {
+    display: none;
+    position: relative;
+    height: 100%;
+    z-index: 9999;
+    top: -100%;
+    left: 0;
+}
+
+#notification {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: none;
+    background: #FFFFFF;
+    padding: 50px;
+    border-radius: 50px;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+}
+
+    #notification span {
+        font-size: 50px;
+        color: #00B3FD;
+    }
+
+
+.button {
+    background-color: #ffffff;
+    border: none;
+    color: #666666;
+    font-size: 20px;
+    margin: 0px;
+    padding: 11px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.butPossition {
+    position: absolute;
+    bottom: 9%;
+    left: 42%;
+    z-index: 600;
+}
+
+.distanceDuration {
+    float: right;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 3px 15px 1px 9px;
+}
+
+    .distanceDuration #distance, #duration {
+        color: #666666;
+        font-size: 18px;
+    }
+
+#distance span {
+    color: #00B3FD;
+    font-weight:bold;
+}
+
+#duration span {
+    color: #00B3FD;
+    font-weight: bold;
+}
+
+#checkboxPosition {
+    background-color: #ffffff;
+    padding: 5px 5px 5px 5px;
+    border-radius: 20px;
+    color: #666666;
+    display: inherit;
+    margin: 10px;
+    cursor: pointer;
+}
+

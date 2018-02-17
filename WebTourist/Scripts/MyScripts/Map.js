@@ -72,8 +72,8 @@ function showFinishRouteMarker(coordinateLat, coordinateLng, map) {
 }
 
 function showDistanceDuration(distance, duration) {
-    $("#distance").text(distance);
-    $("#duration").text(duration);
+    $("#disNumber").text(distance);
+    $("#durNumber").text(duration);
 }
 
 function AddMarkerToArrayForClusterMarker(name, description, latLng) {

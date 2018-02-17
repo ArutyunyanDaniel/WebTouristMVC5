@@ -24,8 +24,8 @@ namespace WebTourist
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/_Site.css",
+                      "~/Content/_Preloader.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
                         "~/Scripts/MyScripts/*.js"));

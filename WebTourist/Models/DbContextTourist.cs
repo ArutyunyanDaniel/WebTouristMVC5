@@ -29,7 +29,7 @@ namespace WebTourist.Models
                 .WithRequired(e => e.Route)
                 .WillCascadeOnDelete(false);
         }
-        
+
         public List<Attraction> GetAttractions()
         {
             List<Attraction> attractions = new List<Attraction>();
@@ -48,7 +48,7 @@ namespace WebTourist.Models
         public List<string> GetExcursionRoutes()
         {
             List<string> excursionRoutes = new List<string>();
-            using (DbContextTourist dbContext=new DbContextTourist())
+            using (DbContextTourist dbContext = new DbContextTourist())
             {
                 var temp = dbContext.Routes.ToList();
                 foreach (var item in temp)
@@ -136,15 +136,15 @@ namespace WebTourist.Models
             return false;
         }
 
-        private RouteInformation PrepareRouteInformation(RouteInformation routeInformation, PointLatLng start, 
-            PointLatLng finish, int idVisitedRoute, string excrustionRoute = "asd",int countExcurisonRoutes = -1 )
+        private RouteInformation PrepareRouteInformation(RouteInformation routeInformation, PointLatLng start,
+            PointLatLng finish, int idVisitedRoute, string excrustionRoute, int countExcurisonRoutes = -1)
         {
             var diraction = Map.GetDiraction(start, finish);
             routeInformation.SetInformationAboutRoute(diraction, idVisitedRoute);
             routeInformation.ExcursionRoute = excrustionRoute;
             if (routeInformation.listIdVisitedRoutes.Count == countExcurisonRoutes)
                 routeInformation.listIdVisitedRoutes.Clear();
-            
+
             return routeInformation;
         }
     }
