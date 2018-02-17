@@ -15,32 +15,34 @@
 
 </head>
 <body>
-    <div id="map"></div>
+    <div class="first-step">
+        <div id="map"></div>
 
-    <div id="transparentBackground">
-        <div id="notification"><span>Searching</span>
+        <div id="transparentBackground">
+            <div id="notification">
+                <span>Searching</span>
 
-            <div class="cssload-thecube">
-                <div class="cssload-cube cssload-c1"></div>
-                <div class="cssload-cube cssload-c2"></div>
-                <div class="cssload-cube cssload-c4"></div>
-                <div class="cssload-cube cssload-c3"></div>
+                <div class="cssload-thecube">
+                    <div class="cssload-cube cssload-c1"></div>
+                    <div class="cssload-cube cssload-c2"></div>
+                    <div class="cssload-cube cssload-c4"></div>
+                    <div class="cssload-cube cssload-c3"></div>
+                </div>
+
             </div>
-
         </div>
-    </div>
 
 
-    <div class="butPossition">
-        <input type="button" id="but1" class="button" value="Next Route">
-        <div class="distanceDuration">
-            <div id="distance">Distance: <span id="disNumber">  </span></div>
-            <div id="duration">Duration: <span id="durNumber">  </span></div>
+        <div class="butPossition">
+            <input type="button" id="but1" class="button" value="Next Route">
+            <div class="distanceDuration">
+                <div id="distance">Distance: <span id="disNumber">  </span></div>
+                <div id="duration">Duration: <span id="durNumber">  </span></div>
+            </div>
+            <label id="checkboxPosition"> <input type="checkbox" id="checkbox" /> Show excursion routes</label>
         </div>
-        <label id="checkboxPosition"> <input type="checkbox" id="checkbox" /> Show excursion routes</label>
-    </div>
 
-    <script>
+        <script>
         function loadPage()
         {
                 @foreach (var item in Model)
@@ -48,8 +50,23 @@
                     @:AddMarkerToArrayForClusterMarker('@item.Name','@item.Description',StringToLatLng('@item.CoordinateOGC'));
                 }
         }
-    </script>
+        </script>
+    </div>
 
+    <div class="second-step">
+        <div id="secod-step-div">
+
+            <div id="div-inputTBut">
+
+                <input id="input-text" type="text" name="key" placeholder="Input your city">
+                <input id="butAcceptCity" type="button" name="print" value="Accept" />
+
+            </div>
+                
+            
+
+        </div>
+    </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
             async defer>

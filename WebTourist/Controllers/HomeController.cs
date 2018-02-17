@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+﻿    using System.Web.Mvc;
 using WebTourist.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +14,10 @@ namespace WebTourist.Controllers
             return View(dbContext.GetAttractions());
         }
 
-        [HttpGet]
-        public JsonResult EventCheckBoxClick()
+        [HttpPost]
+        public JsonResult EventCheckBoxClick(string city)
         {
-            return Json(dbContext.GetExcursionRoutes(), JsonRequestBehavior.AllowGet);
+            return Json(dbContext.GetExcursionRoutes(city), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

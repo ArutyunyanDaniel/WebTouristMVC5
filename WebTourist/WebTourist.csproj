@@ -173,15 +173,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Attraction.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\DbContextTourist.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Attraction.cs" />
-    <Compile Include="Models\DbContextTourist.cs" />
     <Compile Include="Models\Route.cs" />
-    <Compile Include="Models\RouteAttraction.cs" />
     <Compile Include="Models\RouteInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

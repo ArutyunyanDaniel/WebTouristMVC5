@@ -2,6 +2,7 @@ namespace WebTourist.Models
 {
     using System;
     using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Collections.Generic;
     using GMap.NET;
@@ -9,24 +10,24 @@ namespace WebTourist.Models
     public partial class DbContextTourist : DbContext
     {
         public DbContextTourist()
-            : base("name=DbContextTourist")
+            : base("name=DbContextTourist1")
         {
         }
 
         public virtual DbSet<Attraction> Attractions { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
-        public virtual DbSet<RouteAttraction> RouteAttractions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attraction>()
-                .HasMany(e => e.RouteAttractions)
-                .WithRequired(e => e.Attraction)
+            modelBuilder.Entity<City>()
+                .HasMany(e => e.Attractions)
+                .WithRequired(e => e.City)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Route>()
-                .HasMany(e => e.RouteAttractions)
-                .WithRequired(e => e.Route)
+            modelBuilder.Entity<City>()
+                .HasMany(e => e.Routes)
+                .WithRequired(e => e.City)
                 .WillCascadeOnDelete(false);
         }
 
@@ -45,12 +46,13 @@ namespace WebTourist.Models
             return attractions;
         }
 
-        public List<string> GetExcursionRoutes()
+        public List<string> GetExcursionRoutes(string currentCity)
         {
             List<string> excursionRoutes = new List<string>();
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                var temp = dbContext.Routes.ToList();
+                int idCurrentCity = dbContext.Cities.Where(a => a.Name == currentCity).Select(w => w.Id).ToList()[0];
+                var temp = dbContext.Routes.Where(a=>a.CityID == idCurrentCity).ToList();
                 foreach (var item in temp)
                 {
                     excursionRoutes.Add(Helper.DeleteLetterFromString(item.CoordinatesOGC));
@@ -69,7 +71,10 @@ namespace WebTourist.Models
 
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                List<Route> routes = dbContext.Routes.ToList();
+                
+                int idCurrentCity = dbContext.Cities.Where(a => a.Name == routeInformation.cityName).Select(w => w.Id).ToList()[0];
+                List<Route> routes = dbContext.Routes.Where(a => a.CityID == idCurrentCity).ToList();
+
                 foreach (var item in routes)
                 {
                     List<PointLatLng> pointsStartedRoute = Helper.StringToListLatLng(item.CoordinatesStartingPointsRouteOGC);
@@ -99,7 +104,8 @@ namespace WebTourist.Models
             int countExcurisonRoutes = 0;
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                List<Route> routes = dbContext.Routes.ToList();
+                int idCurrentCity = dbContext.Cities.Where(a => a.Name == routeInformation.cityName).Select(w => w.Id).ToList()[0];
+                List<Route> routes = dbContext.Routes.Where(a => a.CityID == idCurrentCity).ToList();
                 countExcurisonRoutes = routes.Count();
 
                 foreach (var item in routes)
@@ -147,5 +153,7 @@ namespace WebTourist.Models
 
             return routeInformation;
         }
+
+
     }
 }

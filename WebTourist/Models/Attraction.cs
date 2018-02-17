@@ -9,12 +9,6 @@ namespace WebTourist.Models
     [Table("Attraction")]
     public partial class Attraction
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Attraction()
-        {
-            RouteAttractions = new HashSet<RouteAttraction>();
-        }
-
         public int id { get; set; }
 
         [Required]
@@ -30,7 +24,8 @@ namespace WebTourist.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string CoordinateOGC { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RouteAttraction> RouteAttractions { get; set; }
+        public int CityID { get; set; }
+
+        public virtual City City { get; set; }
     }
 }

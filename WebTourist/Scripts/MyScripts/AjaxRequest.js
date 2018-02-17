@@ -2,7 +2,7 @@
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = coordinates.lat();
     routeInformation.startCoordinatesLng = coordinates.lng();
-
+    routeInformation.cityName = "Taganrog";
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
@@ -38,6 +38,7 @@ function eventButtomClick() {
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = currentUserlocation.lat();
     routeInformation.startCoordinatesLng = currentUserlocation.lng();
+    routeInformation.cityName = "Taganrog";
     routeInformation.listIdVisitedRoutes = [];
 
     for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++)
@@ -68,9 +69,12 @@ function eventButtomClick() {
 function eventCheckBoxClick() {
     if ($('#checkbox').prop('checked'))
     {
+        var cityName = { 'city': "Taganrog" };
+        
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/Home/EventCheckBoxClick",
+            data: JSON.stringify(cityName),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {

@@ -12,7 +12,7 @@ namespace WebTourist.Models
         {
             listIdVisitedRoutes = new List<int>();
         }
-
+        public string cityName { get; set; }
         public double startCoordinatesLat { get; set; }
         public double startCoordinatesLng { get; set; }
 
