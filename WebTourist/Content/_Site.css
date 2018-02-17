@@ -21,11 +21,12 @@
 
 #notification {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     border: none;
     background: #FFFFFF;
     padding: 50px;
+    z-index: 99999;
     border-radius: 50px;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -47,13 +48,15 @@
     padding: 11px;
     cursor: pointer;
     border-radius: 10px;
+
 }
 
 .butPossition {
     position: absolute;
-    bottom: 9%;
-    left: 42%;
+    bottom: -4%;
+    left: 50%;
     z-index: 600;
+    transform: translate(-50%, -50%);
 }
 
 .distanceDuration {
@@ -64,6 +67,7 @@
     cursor: pointer;
     margin-left: 10px;
     padding: 3px 15px 1px 9px;
+    width: 140px;
 }
 
     .distanceDuration #distance, #duration {
@@ -83,7 +87,7 @@
 
 #checkboxPosition {
     background-color: #ffffff;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 42px;
     border-radius: 20px;
     color: #666666;
     display: inherit;
