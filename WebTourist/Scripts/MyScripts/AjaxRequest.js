@@ -1,4 +1,18 @@
-﻿function eventMouseClick(coordinates) {
+﻿var map;
+var pathToExcursionRoute = null;
+var startRouteMarker = null;
+var finisRouteMarker = null;
+var arrayAttractionMarkers = [];
+var currentUserlocation = null;
+var isEnterLocation = false;
+var arrayIdVisitedExcursionRoutes = [];
+var excursionRoute = null;
+var arrayPolyne = [];
+
+var idCity = null;
+
+
+function eventMouseClick(coordinates) {
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = coordinates.lat();
     routeInformation.startCoordinatesLng = coordinates.lng();
@@ -30,6 +44,7 @@
 }
 
 function eventButtomClick() {
+
     if (!isEnterLocation) {
         alert('Select your location');
         return;
@@ -93,6 +108,22 @@ function eventCheckBoxClick() {
     }
 }
 
+function showAttractions() {
+    var cityName = { 'idCurrentCity': idCity };
+    $.ajax({
+        type: "POST",
+        url: "/Home/EventGetAttractions",
+        data: JSON.stringify(cityName),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                AddMarkerToArrayForClusterMarker(data[i].Name, data[i].Description, StringToLatLng(data[i].CoordinateOGC));
+            }
+        },
+        error: errorFunc
+    });
+}
+
 function CityAccept() {
     var currentCity = { 'city': $('#input-text').val() };
 
@@ -108,12 +139,15 @@ function CityAccept() {
                 $('.first-step').fadeToggle("slow");
                 $('.second-step').hide();
                 $('.butPossition').fadeToggle("slow");
+                showAttractions();
             }
-
             else
                 alert("Not City");
         },
-
+        complete: function () {
+            initMap();
+            setTimeout(initClustter, 1000);
+        },
         error: errorFunc
     });
 }

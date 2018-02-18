@@ -47,17 +47,16 @@ namespace WebTourist.Models
             return idCurrentCity;
         }
 
-        public List<Attraction> GetAttractions()
+        public List<AttractionsInformations> GetAttractions(int idCurrentCity)
         {
-            List<Attraction> attractions = new List<Attraction>();
+            List<AttractionsInformations> attractions = new List<AttractionsInformations>();
             using (DbContextTourist dbContext = new DbContextTourist())
             {
-                var temp = dbContext.Attractions.ToList();
+                var temp = dbContext.Attractions.Where(a=>a.CityID==idCurrentCity).ToList();
                 foreach (var item in temp)
                 {
-                    item.CoordinateOGC = Helper.DeleteLetterFromString(item.CoordinateOGC);
+                    attractions.Add(new AttractionsInformations(item.Name, item.Description, Helper.DeleteLetterFromString(item.CoordinateOGC)));
                 }
-                attractions = temp;
             }
             return attractions;
         }

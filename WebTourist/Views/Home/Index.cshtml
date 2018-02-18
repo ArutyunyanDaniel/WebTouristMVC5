@@ -1,5 +1,5 @@
-﻿@using WebTourist.Models;
-@model IEnumerable<Attraction>
+﻿@*@using WebTourist.Models;
+@model IEnumerable<Attraction>*@
 
 <!DOCTYPE html>
 <html>
@@ -42,15 +42,15 @@
             <label id="checkboxPosition"> <input type="checkbox" id="checkbox" /> Show excursion routes</label>
         </div>
 
-        <script>
+        @*<script>
         function loadPage()
         {
                 @foreach (var item in Model)
                 {
                     @:AddMarkerToArrayForClusterMarker('@item.Name','@item.Description',StringToLatLng('@item.CoordinateOGC'));
                 }
-        }
-        </script>
+        }*@
+        @*</script>*@
     </div>
 
     <div class="second-step">
@@ -68,8 +68,9 @@
         </div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw &callback=initMap "
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw"
             async defer>
+        
     </script>
 
     @Scripts.Render("~/bundles/myscripts")

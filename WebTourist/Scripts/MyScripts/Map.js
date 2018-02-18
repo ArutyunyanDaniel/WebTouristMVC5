@@ -1,24 +1,10 @@
-﻿var map;
-var pathToExcursionRoute = null;
-var startRouteMarker = null;
-var finisRouteMarker = null;
-var arrayAttractionMarkers = [];
-var currentUserlocation = null;
-var isEnterLocation= false;
-var arrayIdVisitedExcursionRoutes = [];
-var excursionRoute = null;
-var arrayPolyne = [];
-
-var idCity = null;
-
+﻿
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: { lat: 47.21242644449467, lng: 38.92554759979248 },
         mapTypeId: 'terrain'
     });
-
-    google.maps.event.addDomListener(window, 'load', initClustter);
 
     map.addListener('click', function (e) {    
         checkStartMarker();
@@ -110,7 +96,6 @@ function DrawPathToExcursionRoute(route) {
 
 
 function DrawExcursionRoutesWhenClickCheckBox(route) {
-    
    var temp = new google.maps.Polyline({
         path: route,
         geodesic: true,

@@ -4,7 +4,7 @@ $('#checkbox').click(eventCheckBoxClick);
 
 $('#butAcceptCity').click(CityAccept);
 
-$(document).ready(loadPage);
+//$(document).ready(showAttractions);
 
 
 $("#but1").mouseover(function () {

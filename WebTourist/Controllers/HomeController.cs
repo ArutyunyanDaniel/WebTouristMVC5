@@ -9,7 +9,13 @@ namespace WebTourist.Controllers
 
         public  ActionResult Index()
         {
-            return View(dbContext.GetAttractions());
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult EventGetAttractions(int idCurrentCity)
+        {
+            return Json(dbContext.GetAttractions(idCurrentCity));
         }
 
         [HttpPost]
@@ -26,7 +32,7 @@ namespace WebTourist.Controllers
         [HttpPost]
         public JsonResult EventCheckBoxClick(int idCurrentCity)
         {
-            return Json(dbContext.GetExcursionRoutes(idCurrentCity), JsonRequestBehavior.AllowGet);
+            return Json(dbContext.GetExcursionRoutes(idCurrentCity));
         }
 
         [HttpPost]
