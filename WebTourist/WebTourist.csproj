@@ -238,6 +238,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MyScripts\AjaxEvent.js" />
     <Content Include="Scripts\MyScripts\AjaxRequest.js" />
     <Content Include="Scripts\MyScripts\Helper.js" />
     <Content Include="Scripts\MyScripts\Map.js" />

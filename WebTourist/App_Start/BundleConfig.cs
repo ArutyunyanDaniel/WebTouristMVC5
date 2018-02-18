@@ -5,7 +5,6 @@ namespace WebTourist
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -14,8 +13,6 @@ namespace WebTourist
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -28,15 +25,13 @@ namespace WebTourist
                       "~/Content/_Preloader.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
-                        "~/Scripts/MyScripts/*.js"));
+                        "~/Scripts/MyScripts/AjaxRequest.js",
+                        "~/Scripts/MyScripts/Helper.js",
+                        "~/Scripts/MyScripts/Map.js",
+                        "~/Scripts/MyScripts/AjaxEvent.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/markerCluster").Include(
                         "~/Scripts/markerclusterer.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/adminJs").Include(
-                        "~/Scripts/AdminScripts/*.js"));
-
-          
         }
     }
 }

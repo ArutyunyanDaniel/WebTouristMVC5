@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using GMap.NET;
 
 namespace WebTourist.Models
@@ -12,7 +9,7 @@ namespace WebTourist.Models
         {
             listIdVisitedRoutes = new List<int>();
         }
-        public string cityName { get; set; }
+        public int IdCurrentCity{ get; set; }
         public double startCoordinatesLat { get; set; }
         public double startCoordinatesLng { get; set; }
 

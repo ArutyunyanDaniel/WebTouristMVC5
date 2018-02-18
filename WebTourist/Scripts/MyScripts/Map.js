@@ -9,6 +9,8 @@ var arrayIdVisitedExcursionRoutes = [];
 var excursionRoute = null;
 var arrayPolyne = [];
 
+var idCity = null;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,

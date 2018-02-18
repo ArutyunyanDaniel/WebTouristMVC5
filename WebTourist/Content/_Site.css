@@ -11,14 +11,14 @@
 }
 
 .first-step {
-    //display: none;
+    display: none;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
 .second-step {
-    display: none;
+    
     height: 100%;
     margin: 0;
     padding: 0;
@@ -118,6 +118,7 @@
 }
 
 .butPossition {
+    display:none;
     position: absolute;
     bottom: -4%;
     left: 50%;

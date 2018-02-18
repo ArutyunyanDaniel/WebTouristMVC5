@@ -2,12 +2,13 @@
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = coordinates.lat();
     routeInformation.startCoordinatesLng = coordinates.lng();
-    routeInformation.cityName = "Taganrog";
+    routeInformation.IdCurrentCity = idCity;
     $.ajax({
         type: "POST",
         url: "/Home/EventMouseClick",
         data: JSON.stringify(routeInformation),
         contentType: "application/json; charset=utf-8",
+
         beforeSend: showTransparentBackgroundAndPreloader,
 
         success: function (data) {
@@ -23,7 +24,6 @@
         },
 
         complete: hideTransparentBackgroundAndPreloader,
-
         error: errorFunc
     });
 
@@ -38,7 +38,7 @@ function eventButtomClick() {
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = currentUserlocation.lat();
     routeInformation.startCoordinatesLng = currentUserlocation.lng();
-    routeInformation.cityName = "Taganrog";
+    routeInformation.IdCurrentCity = idCity;
     routeInformation.listIdVisitedRoutes = [];
 
     for (var i = 0; i < arrayIdVisitedExcursionRoutes.length; i++)
@@ -67,10 +67,9 @@ function eventButtomClick() {
 }
 
 function eventCheckBoxClick() {
-    if ($('#checkbox').prop('checked'))
-    {
-        var cityName = { 'city': "Taganrog" };
-        
+    if ($('#checkbox').prop('checked')) {
+        var cityName = { 'idCurrentCity': idCity };
+
         $.ajax({
             type: "POST",
             url: "/Home/EventCheckBoxClick",
@@ -84,16 +83,39 @@ function eventCheckBoxClick() {
             error: errorFunc
         });
     }
-    else
-    {
-        for (var i = 0; i < arrayPolyne.length; i++)
-        {
+    else {
+        for (var i = 0; i < arrayPolyne.length; i++) {
             if (arrayPolyne[i] !== null) {
                 arrayPolyne[i].setMap(null);
                 arrayPolyne[i] = null;
             }
         }
     }
+}
+
+function CityAccept() {
+    var currentCity = { 'city': $('#input-text').val() };
+
+    $.ajax({
+        type: "POST",
+        url: "/Home/EventCitySelect",
+        data: JSON.stringify(currentCity),
+        contentType: "application/json; charset=utf-8",
+
+        success: function (data) {
+            if (data.success) {
+                idCity = data.idSelectedCity;
+                $('.first-step').fadeToggle("slow");
+                $('.second-step').hide();
+                $('.butPossition').fadeToggle("slow");
+            }
+
+            else
+                alert("Not City");
+        },
+
+        error: errorFunc
+    });
 }
 
 function showTransparentBackgroundAndPreloader() {
@@ -106,23 +128,6 @@ function hideTransparentBackgroundAndPreloader() {
     $("#preloader").hide('slow');
 }
 
-
 function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
-
-$('#but1').click(eventButtomClick);
-
-$("#but1").mouseover(function () {
-    $(this).css("color", "#00B3FD");
-});
-
-$("#but1").mouseout(function () {
-    $(this).css("color", "#666666");
-});
-
-$(document).ready(loadPage);
-
-$('#checkbox').click(eventCheckBoxClick);
-
-

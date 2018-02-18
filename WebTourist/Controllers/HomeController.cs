@@ -1,7 +1,5 @@
-﻿    using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using WebTourist.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebTourist.Controllers
 {
@@ -15,9 +13,20 @@ namespace WebTourist.Controllers
         }
 
         [HttpPost]
-        public JsonResult EventCheckBoxClick(string city)
+        public JsonResult EventCitySelect(string city)
         {
-            return Json(dbContext.GetExcursionRoutes(city), JsonRequestBehavior.AllowGet);
+            int idSelectedCity = dbContext.GetIdCurrentCity(city);
+            bool succes = true;
+            if(idSelectedCity == -1)
+                succes = false;
+            
+            return Json(new { success = succes, idSelectedCity });
+        }
+
+        [HttpPost]
+        public JsonResult EventCheckBoxClick(int idCurrentCity)
+        {
+            return Json(dbContext.GetExcursionRoutes(idCurrentCity), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
