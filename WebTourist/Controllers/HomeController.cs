@@ -5,28 +5,29 @@ namespace WebTourist.Controllers
 {
     public class HomeController : Controller
     {
-        DbContextTourist dbContext = new DbContextTourist();
+        DbContextTourists dbContext = new DbContextTourists();
 
         public  ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult EventGetAttractions(int idCurrentCity)
-        {
-            return Json(dbContext.GetAttractions(idCurrentCity));
-        }
 
         [HttpPost]
         public JsonResult EventCitySelect(string city)
         {
             int idSelectedCity = dbContext.GetIdCurrentCity(city);
             bool succes = true;
-            if(idSelectedCity == -1)
+            if (idSelectedCity == -1)
                 succes = false;
-            
+
             return Json(new { success = succes, idSelectedCity });
+        }
+
+        [HttpPost]
+        public JsonResult EventGetAttractions(int idCurrentCity)
+        {
+            return Json(dbContext.GetAttractions(idCurrentCity));
         }
 
         [HttpPost]

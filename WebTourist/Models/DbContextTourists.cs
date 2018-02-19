@@ -6,12 +6,11 @@ namespace WebTourist.Models
     using System.Linq;
     using System.Collections.Generic;
     using GMap.NET;
-    using System.Web.Mvc;
 
-    public partial class DbContextTourist : DbContext
+    public partial class DbContextTourists : DbContext
     {
-        public DbContextTourist()
-            : base("name=DbContextTourist1")
+        public DbContextTourists()
+            : base("name=DbContextTourists")
         {
         }
 
@@ -31,12 +30,10 @@ namespace WebTourist.Models
                 .WithRequired(e => e.City)
                 .WillCascadeOnDelete(false);
         }
-
-
         public int GetIdCurrentCity(string selectedCity)
         {
             int idCurrentCity;
-            using (DbContextTourist dbContext = new DbContextTourist())
+            using (DbContextTourists dbContext = new DbContextTourists())
             {
                 bool temp = dbContext.Cities.Any(u => u.Name == selectedCity);
                 if (temp)
@@ -50,9 +47,9 @@ namespace WebTourist.Models
         public List<AttractionsInformations> GetAttractions(int idCurrentCity)
         {
             List<AttractionsInformations> attractions = new List<AttractionsInformations>();
-            using (DbContextTourist dbContext = new DbContextTourist())
+            using (DbContextTourists dbContext = new DbContextTourists())
             {
-                var temp = dbContext.Attractions.Where(a=>a.CityID==idCurrentCity).ToList();
+                var temp = dbContext.Attractions.Where(a => a.CityID == idCurrentCity).ToList();
                 foreach (var item in temp)
                 {
                     attractions.Add(new AttractionsInformations(item.Name, item.Description, Helper.DeleteLetterFromString(item.CoordinateOGC)));
@@ -64,9 +61,9 @@ namespace WebTourist.Models
         public List<string> GetExcursionRoutes(int idCurrentCity)
         {
             List<string> excursionRoutes = new List<string>();
-            using (DbContextTourist dbContext = new DbContextTourist())
+            using (DbContextTourists dbContext = new DbContextTourists())
             {
-                var temp = dbContext.Routes.Where(a=>a.CityID == idCurrentCity).ToList();
+                var temp = dbContext.Routes.Where(a => a.CityID == idCurrentCity).ToList();
                 foreach (var item in temp)
                 {
                     excursionRoutes.Add(Helper.DeleteLetterFromString(item.CoordinatesOGC));
@@ -83,8 +80,8 @@ namespace WebTourist.Models
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
 
-            using (DbContextTourist dbContext = new DbContextTourist())
-            {  
+            using (DbContextTourists dbContext = new DbContextTourists())
+            {
                 List<Route> routes = dbContext.Routes.Where(a => a.CityID == routeInformation.IdCurrentCity).ToList();
 
                 foreach (var item in routes)
@@ -114,8 +111,8 @@ namespace WebTourist.Models
             double maxDistance = Double.MaxValue;
             int IdVisitedExcursionRout = 0;
             int countExcurisonRoutes = 0;
-            using (DbContextTourist dbContext = new DbContextTourist())
-            {        
+            using (DbContextTourists dbContext = new DbContextTourists())
+            {
                 List<Route> routes = dbContext.Routes.Where(a => a.CityID == routeInformation.IdCurrentCity).ToList();
                 countExcurisonRoutes = routes.Count();
 

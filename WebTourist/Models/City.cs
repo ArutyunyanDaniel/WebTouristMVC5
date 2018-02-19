@@ -22,6 +22,11 @@ namespace WebTourist.Models
         [StringLength(30)]
         public string Name { get; set; }
 
+        public DbGeography Coordinate { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string CoordinateOGC { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attraction> Attractions { get; set; }
 
