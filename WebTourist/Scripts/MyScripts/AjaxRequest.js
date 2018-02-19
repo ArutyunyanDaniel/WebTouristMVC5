@@ -132,9 +132,7 @@ function CityAccept() {
         url: "/Home/EventCitySelect",
         data: JSON.stringify(currentCity),
         contentType: "application/json; charset=utf-8",
-
         success: function (data) {
-            console.log(data);
             if (data.Id!=-1) {
                 idCity = data.Id;
                 $('.first-step').fadeToggle("slow");
@@ -146,8 +144,7 @@ function CityAccept() {
             else
                 alert("Not City");
         },
-        complete: function (data) {
-            
+        complete: function (data) {   
             setTimeout(initClustter, 1000);
         },
         error: errorFunc
