@@ -174,7 +174,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Attraction.cs" />
-    <Compile Include="Models\AttractionsInformations.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\DbContextTourists.cs" />
     <Compile Include="Models\Helper.cs" />
@@ -203,8 +202,6 @@
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\cluster1.png" />
     <Content Include="Images\museum.png" />
-    <Content Include="Scripts\AdminScripts\AdminMap.js" />
-    <Content Include="Scripts\AdminScripts\ajaxRequest.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -12,16 +12,10 @@ namespace WebTourist.Controllers
             return View();
         }
 
-
         [HttpPost]
         public JsonResult EventCitySelect(string city)
         {
-            int idSelectedCity = dbContext.GetIdCurrentCity(city);
-            bool succes = true;
-            if (idSelectedCity == -1)
-                succes = false;
-
-            return Json(new { success = succes, idSelectedCity });
+            return Json(dbContext.GetIdCurrentCity(city));
         }
 
         [HttpPost]

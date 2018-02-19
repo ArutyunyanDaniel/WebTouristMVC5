@@ -30,29 +30,35 @@ namespace WebTourist.Models
                 .WithRequired(e => e.City)
                 .WillCascadeOnDelete(false);
         }
-        public int GetIdCurrentCity(string selectedCity)
+
+        public City GetIdCurrentCity(string selectedCity)
         {
-            int idCurrentCity;
+            City cityInformation = new City();
+
             using (DbContextTourists dbContext = new DbContextTourists())
             {
                 bool temp = dbContext.Cities.Any(u => u.Name == selectedCity);
+                int idCurrentCity;
                 if (temp)
-                    idCurrentCity = dbContext.Cities.Where(a => a.Name == selectedCity).Select(w => w.Id).ToList()[0];
+                { 
+                    cityInformation.Id = idCurrentCity = dbContext.Cities.Where(a => a.Name == selectedCity).Select(w => w.Id).ToList()[0];
+                    cityInformation.CoordinateOGC = Helper.DeleteLetterFromString(dbContext.Cities.Where(a => a.Id == idCurrentCity).Select(w => w.CoordinateOGC).ToList()[0]);
+                }
                 else
                     idCurrentCity = -1;
             }
-            return idCurrentCity;
+            return cityInformation;
         }
 
-        public List<AttractionsInformations> GetAttractions(int idCurrentCity)
+        public List<Attraction> GetAttractions(int idCurrentCity)
         {
-            List<AttractionsInformations> attractions = new List<AttractionsInformations>();
+            List<Attraction> attractions = new List<Attraction>();
             using (DbContextTourists dbContext = new DbContextTourists())
             {
                 var temp = dbContext.Attractions.Where(a => a.CityID == idCurrentCity).ToList();
                 foreach (var item in temp)
                 {
-                    attractions.Add(new AttractionsInformations(item.Name, item.Description, Helper.DeleteLetterFromString(item.CoordinateOGC)));
+                    attractions.Add(new Attraction(item.Name, item.Description, Helper.DeleteLetterFromString(item.CoordinateOGC)));
                 }
             }
             return attractions;

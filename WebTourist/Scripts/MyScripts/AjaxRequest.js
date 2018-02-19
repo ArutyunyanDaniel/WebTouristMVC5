@@ -134,18 +134,20 @@ function CityAccept() {
         contentType: "application/json; charset=utf-8",
 
         success: function (data) {
-            if (data.success) {
-                idCity = data.idSelectedCity;
+            console.log(data);
+            if (data.Id!=-1) {
+                idCity = data.Id;
                 $('.first-step').fadeToggle("slow");
                 $('.second-step').hide();
                 $('.butPossition').fadeToggle("slow");
                 showAttractions();
+                initMap(StringToLatLng(data.CoordinateOGC));
             }
             else
                 alert("Not City");
         },
-        complete: function () {
-            initMap();
+        complete: function (data) {
+            
             setTimeout(initClustter, 1000);
         },
         error: errorFunc
