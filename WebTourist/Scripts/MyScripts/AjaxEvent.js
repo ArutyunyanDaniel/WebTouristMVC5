@@ -4,9 +4,6 @@ $('#checkbox').click(eventCheckBoxClick);
 
 $('#butAcceptCity').click(CityAccept);
 
-//$(document).ready(showAttractions);
-
-
 $("#but1").mouseover(function () {
     $(this).css("color", "#00B3FD");
 });

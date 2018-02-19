@@ -1,7 +1,4 @@
-﻿@*@using WebTourist.Models;
-@model IEnumerable<Attraction>*@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -41,37 +38,19 @@
             </div>
             <label id="checkboxPosition"> <input type="checkbox" id="checkbox" /> Show excursion routes</label>
         </div>
-
-        @*<script>
-        function loadPage()
-        {
-                @foreach (var item in Model)
-                {
-                    @:AddMarkerToArrayForClusterMarker('@item.Name','@item.Description',StringToLatLng('@item.CoordinateOGC'));
-                }
-        }*@
-        @*</script>*@
     </div>
 
     <div class="second-step">
         <div id="secod-step-div">
-
             <div id="div-inputTBut">
-
                 <input id="input-text" type="text" name="key" placeholder="Input your city">
                 <input id="butAcceptCity" type="button" name="print" value="Accept" />
-
             </div>
-                
-            
-
         </div>
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjUfDf5v52pKGCIKhBqlSW9IQZV3lcRJw"
-            async defer>
-        
-    </script>
+            async defer></script>
 
     @Scripts.Render("~/bundles/myscripts")
     @Scripts.Render("~/bundles/markerCluster")
