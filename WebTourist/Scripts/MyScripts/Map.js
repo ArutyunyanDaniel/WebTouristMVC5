@@ -1,4 +1,16 @@
-﻿function initMap(cityLatLng) {
+﻿var map;
+var pathToExcursionRoute = null;
+var startRouteMarker = null;
+var finisRouteMarker = null;
+var arrayAttractionMarkers = [];
+var currentUserlocation = null;
+var isEnterLocation = false;
+var excursionRoute = null;
+var arrayIdVisitedExcursionRoutes = [];
+var arrayPolyne = [];
+var idCity = null;
+
+function initMap(cityLatLng) {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: cityLatLng,
@@ -14,6 +26,14 @@
         showStartRouteMarkerandPanTo(e.latLng, map);
         currentUserlocation = e.latLng;    
         eventMouseClick(e.latLng);
+    });
+
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+        if (map.getZoom() <= 10) {
+            $('.first-step').hide("slow");
+            $('.second-step').show("slow");
+            $('.butPossition').hide("slow");
+        }
     });
 }
 

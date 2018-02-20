@@ -45,7 +45,7 @@ namespace WebTourist.Models
                     cityInformation.CoordinateOGC = Helper.DeleteLetterFromString(dbContext.Cities.Where(a => a.Id == idCurrentCity).Select(w => w.CoordinateOGC).ToList()[0]);
                 }
                 else
-                    idCurrentCity = -1;
+                    cityInformation.Id=-1;
             }
             return cityInformation;
         }

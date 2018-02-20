@@ -11,11 +11,11 @@ namespace WebTourist.Models
     public partial class Attraction
     {
         public Attraction() { }
-        public Attraction(string name, string des, string coord)
+        public Attraction(string name, string description, string coordinate)
         {
             Name = name;
-            Description = des;
-            CoordinateOGC = coord;
+            Description = description;
+            CoordinateOGC = coordinate;
         }
 
         public int id { get; set; }

@@ -1,18 +1,4 @@
-﻿var map;
-var pathToExcursionRoute = null;
-var startRouteMarker = null;
-var finisRouteMarker = null;
-var arrayAttractionMarkers = [];
-var currentUserlocation = null;
-var isEnterLocation = false;
-var arrayIdVisitedExcursionRoutes = [];
-var excursionRoute = null;
-var arrayPolyne = [];
-
-var idCity = null;
-
-
-function eventMouseClick(coordinates) {
+﻿function eventMouseClick(coordinates) {
     var routeInformation = new Object();
     routeInformation.startCoordinatesLat = coordinates.lat();
     routeInformation.startCoordinatesLng = coordinates.lng();
