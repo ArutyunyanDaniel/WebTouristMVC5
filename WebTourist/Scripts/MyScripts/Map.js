@@ -1,15 +1,4 @@
-﻿var map;
-var pathToExcursionRoute = null;
-var startRouteMarker = null;
-var finisRouteMarker = null;
-var arrayAttractionMarkers = [];
-var currentUserlocation = null;
-var isEnterLocation = false;
-var excursionRoute = null;
-var arrayIdVisitedExcursionRoutes = [];
-var arrayPolyne = [];
-var idCity = null;
-
+﻿
 function initMap(cityLatLng) {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
@@ -29,13 +18,11 @@ function initMap(cityLatLng) {
     });
 
     google.maps.event.addListener(map, 'zoom_changed', function () {
-        if (map.getZoom() <= 10) {
-            $('.first-step').hide("slow");
-            $('.second-step').show("slow");
-            $('.butPossition').hide("slow");
-        }
+        if (map.getZoom() <= 10)
+            firstStepToSecondStep();
     });
 }
+
 
 function initClustter() {
     var options = {
@@ -78,10 +65,7 @@ function showFinishRouteMarker(coordinateLat, coordinateLng, map) {
     });
 }
 
-function showDistanceDuration(distance, duration) {
-    $("#disNumber").text(distance);
-    $("#durNumber").text(duration);
-}
+
 
 function AddMarkerToArrayForClusterMarker(name, description, latLng) {
     var marker = new google.maps.Marker({
@@ -138,30 +122,3 @@ function DrawExcursionRoutes(route) {
     excursionRoute.setMap(map);
 }
 
-function checkStartMarker() {
-    if (startRouteMarker !== null) {
-        startRouteMarker.setMap(null);
-        startRouteMarker = null;
-    }
-}
-
-function checkFinishMarker() {
-     if (finisRouteMarker !== null) {
-        finisRouteMarker.setMap(null);
-        finisRouteMarker = null;
-    }
-}
-
-function checkPathtoExcursionRoute() {
-    if (pathToExcursionRoute !== null) {
-        pathToExcursionRoute.setMap(null);
-        pathToExcursionRoute = null;
-    }
-}
-
-function checkExcursionRoute() {
-    if (excursionRoute !== null) {
-        excursionRoute.setMap(null);
-        excursionRoute = null;
-    }
-}

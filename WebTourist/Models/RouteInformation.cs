@@ -9,19 +9,6 @@ namespace WebTourist.Models
         {
             listIdVisitedRoutes = new List<int>();
         }
-        public int IdCurrentCity{ get; set; }
-        public double startCoordinatesLat { get; set; }
-        public double startCoordinatesLng { get; set; }
-
-        public double finishCoordinatesLat { get; set; }
-        public double finishCoordinatesLng { get; set; }
-
-        public string Distance { get; set; }
-        public string Duration { get; set; }
-
-        public List<int> listIdVisitedRoutes { get; set; }
-        public string WayToExcursionRoute { get; set; }
-        public string ExcursionRoute { get; set; }
 
         public void SetInformationAboutRoute(GDirections diraction,int idVisitedRoute)
         {
@@ -38,5 +25,18 @@ namespace WebTourist.Models
             WayToExcursionRoute = Helper.ListLatLngToString(diraction.Route);
         }
 
+        public int IdCurrentCity { get; set; }
+        public double startCoordinatesLat { get; set; }
+        public double startCoordinatesLng { get; set; }
+
+        public double finishCoordinatesLat { get; set; }
+        public double finishCoordinatesLng { get; set; }
+
+        public string Distance { get; set; }
+        public string Duration { get; set; }
+
+        public List<int> listIdVisitedRoutes { get; set; }
+        public string WayToExcursionRoute { get; set; }
+        public string ExcursionRoute { get; set; }
     }
 }

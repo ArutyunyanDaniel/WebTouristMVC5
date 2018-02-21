@@ -30,7 +30,6 @@
 }
 
 function eventButtomClick() {
-
     if (!isEnterLocation) {
         alert('Select your location');
         return;
@@ -100,7 +99,7 @@ function showAttractions() {
         type: "POST",
         url: "/Home/EventGetAttractions",
         data: JSON.stringify(cityName),
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/json; charset=utf-8",     
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 AddMarkerToArrayForClusterMarker(data[i].Name, data[i].Description, StringToLatLng(data[i].CoordinateOGC));
@@ -121,9 +120,7 @@ function CityAccept() {
         success: function (data) {
             if (data.Id!=-1) {
                 idCity = data.Id;
-                $('.first-step').fadeToggle("slow");
-                $('.second-step').hide();
-                $('.butPossition').fadeToggle("slow");
+                secondStepToFristStep();
                 showAttractions();
                 initMap(StringToLatLng(data.CoordinateOGC));
             }
@@ -137,16 +134,7 @@ function CityAccept() {
     });
 }
 
-function showTransparentBackgroundAndPreloader() {
-    $("#transparentBackground").show('slow');
-    $("#preloader").show('slow');
-}
-
-function hideTransparentBackgroundAndPreloader() {
-    $("#transparentBackground").hide('slow');
-    $("#preloader").hide('slow');
-}
 
 function errorFunc(errorData) {
-    alert('Ошибка' + errorData.responseText);
+    alert('Ошибка: ' + errorData.responseText);
 }

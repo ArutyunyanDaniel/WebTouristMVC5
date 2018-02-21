@@ -25,8 +25,8 @@ namespace WebTourist
                       "~/Content/_Preloader.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
-                        "~/Scripts/MyScripts/AjaxRequest.js",
                         "~/Scripts/MyScripts/Helper.js",
+                        "~/Scripts/MyScripts/AjaxRequest.js",
                         "~/Scripts/MyScripts/Map.js",
                         "~/Scripts/MyScripts/AjaxEvent.js"));
 
